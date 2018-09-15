@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://RigidBodyParticles2D.gd" type="Script" id=1]
+
+[node name="RigidBodyParticles2D" type="Node2D"]
+
+script = ExtResource( 1 )
+particles = 8
+particle_scene = null
+particle_lifetime = 1
+emit_angle = 0
+emit_angle_random = 0
+emit_impulse = 0
+emit_impulse_random = 0
+
+
