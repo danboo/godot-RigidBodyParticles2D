@@ -20,6 +20,8 @@ func _ready():
 	randomize()
 	for i in range(particles):
 		var particle      = particle_scene.instance()
+		if particle.get_class() != 'RigidBody2D':
+			printerr("Error: Root node of instanced scene must be a 'RigidBody2D', not " + particle.get_class())
 		_initialize_particle(particle)
 		add_child(particle)
 
@@ -41,4 +43,14 @@ func _initialize_particle(p):
 	life_timer.wait_time = particle_lifetime
 	life_timer.particle  = p
 	p.add_child(life_timer)
+
+	## change scale over time
+
+	## change color over time
+
+	## add delay between particle emits
+
+	## add oneshot
+
+	## add autoplay
 
