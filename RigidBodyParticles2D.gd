@@ -1,5 +1,30 @@
 extends Node2D
 
+## can i export Tween.EaseType and Tween.TransitionType directly?
+
+## ENUMS
+
+enum EaseType {
+	EASE_IN     = Tween.EASE_IN,
+	EASE_OUT    = Tween.EASE_OUT,
+	EASE_IN_OUT = Tween.EASE_IN_OUT,
+	EASE_OUT_IN = Tween.EASE_OUT_IN,
+	}
+
+enum TransitionType {
+	TRANS_LINEAR  = Tween.TRANS_LINEAR,
+	TRANS_SINE    = Tween.TRANS_SINE,
+	TRANS_QUINT   = Tween.TRANS_QUINT,
+	TRANS_QUART   = Tween.TRANS_QUART,
+	TRANS_QUAD    = Tween.TRANS_QUAD,
+	TRANS_EXPO    = Tween.TRANS_EXPO,
+	TRANS_ELASTIC = Tween.TRANS_ELASTIC,
+	TRANS_CUBIC   = Tween.TRANS_CUBIC,
+	TRANS_CIRC    = Tween.TRANS_CIRC,
+	TRANS_BOUNCE  = Tween.TRANS_BOUNCE,
+	TRANS_BACK    = Tween.TRANS_BACK,
+	}
+
 ## EXPORTED VARIABLES
 
 export (int)         var particles = 8      ## Number of particles emitted for each "shot"
@@ -13,6 +38,13 @@ export (float, 360)  var emit_angle = 0
 export (float, 1)    var emit_angle_random = 0
 export (float)       var emit_impulse = 0
 export (float, 1)    var emit_impulse_random = 0
+
+export (Vector2)        var scale_start
+export (float, 1)       var scale_start_random = 0
+export (Vector2)        var scale_finish
+export (float, 1)       var scale_finish_random = 0
+export (TransitionType) var scale_transition
+export (EaseType)       var scale_ease
 
 ## PRIVATE VARIABLES
 
@@ -47,12 +79,28 @@ func _initialize_particle(p):
 
 	## set lifetime
 	var lifetime_rand    = lifetime * randf() * lifetime_random
+	var lifetime_inst    = lifetime + lifetime_rand
 	var life_timer       = life_timer_scene.instance()
-	life_timer.wait_time = lifetime + lifetime_rand
+	life_timer.wait_time = lifetime_inst
 	life_timer.particle  = p
 	p.add_child(life_timer)
 
 	## change scale over time
+	if scale_start and scale_finish:
+
+		var scale_start_rand = scale_start * randf() * scale_start_random
+		var scale_start_inst = scale_start + scale_start_rand
+
+		var scale_finish_rand = scale_finish * randf() * scale_finish_random
+		var scale_finish_inst = scale_finish + scale_finish_rand
+
+		var scale_tween = Tween.new()
+		scale_tween.interpolate_property(p, "scale", scale_start_inst,
+			scale_finish_inst, lifetime_inst, scale_transition, scale_ease)
+
+		scale_tween.start()
+		p.add_child(scale_tween)
+
 
 	## change color over time
 

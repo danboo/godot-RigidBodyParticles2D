@@ -65,15 +65,20 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="RigidBodyParticles2D" parent="Camera2D" index="0" instance=ExtResource( 1 )]
 
-_sections_unfolded = [ "Transform" ]
 particle_scene = ExtResource( 2 )
 autostart = true
-lifetime = 1
+lifetime = 5.0
 lifetime_random = 1.0
 emit_angle = 360.0
 emit_angle_random = 1.0
 emit_impulse = 300.0
 emit_impulse_random = 1.0
+scale_start = Vector2( 1, 1 )
+scale_start_random = 1.0
+scale_finish = Vector2( 1, 1 )
+scale_finish_random = 1.0
+scale_transition = 2
+scale_ease = 2
 
 [node name="Floor" type="Node2D" parent="." index="1"]
 

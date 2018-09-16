@@ -5,6 +5,7 @@
 [node name="RigidBodyParticles2D" type="Node2D"]
 
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
 particles = 8
 particle_scene = null
 autostart = false
@@ -14,5 +15,11 @@ emit_angle = 0
 emit_angle_random = 0
 emit_impulse = 0
 emit_impulse_random = 0
+scale_start = null
+scale_start_random = 0
+scale_finish = null
+scale_finish_random = 0
+scale_transition = null
+scale_ease = null
 
 
