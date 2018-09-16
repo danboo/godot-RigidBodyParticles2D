@@ -1,8 +1,15 @@
 extends Node2D
 
 ## TODO
-##  - use a Timer node to handle auto-restarts
+##  - document interface
+##  - create a prettier example (falling stones that create sparks)
+##  - rename exported variables for consistency with Particles2D
 ##  - would a Vector2() be more intuitive than "angle"
+##  - think about how user can introspect Particle properties. for example
+##     - a custom Tween that operates on lifetime
+##     - a Sprite that stretches based on speed
+##     - a Sprite that rotates based on angle
+##  - add Tweens for RigidBody2D properties (gravity scale, bounce, friction, ...)
 
 ## ENUMS
 
@@ -14,8 +21,8 @@ export (bool)        var autostart = true   ## automatically start particles whe
 export (bool)        var oneshot = false
 export (float, 1)    var explosiveness = 0
 
+## EMIT PROPERTIES
 
-## emit properties
 export (float)       var lifetime = 2
 export (float, 1)    var lifetime_random = 0
 
@@ -30,28 +37,33 @@ export (Gradient)    var color
 ## PRIVATE VARIABLES
 
 var life_timer_scene = load("res://RigidBodyParticles2D/LifeTimer.tscn")
+var iteration = 0
 
 func _ready():
+	randomize()
 	if autostart:
 		_start()
 
 func _start():
-	randomize()
-	var start_time = OS.get_ticks_msec()
+
+	if ! oneshot:
+		$Restarter.wait_time = lifetime
+		$Restarter.connect("timeout", self, "_start")
+		$Restarter.start()
+
+	var emit_delay = ( 1 - explosiveness ) * ( lifetime / float(particles) )
+
 	for i in range(particles):
 		var particle = particle_scene.instance()
-		if particle.get_class() != 'RigidBody2D':
-			printerr("Error: Root node of instanced scene must be a 'RigidBody2D', not '"
+		if iteration == 0 && particle.get_class() != 'RigidBody2D':
+			printerr("Error: Root node of 'Particle Scene' must be a 'RigidBody2D', not '"
 				+ particle.get_class()) + "'"
 		_initialize_particle(particle)
 		add_child(particle)
-		var emit_delay = ( 1 - explosiveness ) * ( lifetime / float(particles) )
 		if abs(emit_delay) > 0.01:
 			yield(get_tree().create_timer(emit_delay), "timeout")
-	var duration = OS.get_ticks_msec() - start_time
-	yield(get_tree().create_timer( lifetime - float(duration) / 1000 ), "timeout")
-	if ! oneshot:
-		_start()
+
+	iteration += 1
 
 func _randomize(value, randomness):
 	var rand_unit = ( 2 * randf() - 1 ) ## ranges from -1,+1
