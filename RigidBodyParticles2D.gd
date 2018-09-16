@@ -4,32 +4,14 @@ extends Node2D
 
 ## ENUMS
 
-enum EaseType {
-	EASE_IN     = Tween.EASE_IN,
-	EASE_OUT    = Tween.EASE_OUT,
-	EASE_IN_OUT = Tween.EASE_IN_OUT,
-	EASE_OUT_IN = Tween.EASE_OUT_IN,
-	}
-
-enum TransitionType {
-	TRANS_LINEAR  = Tween.TRANS_LINEAR,
-	TRANS_SINE    = Tween.TRANS_SINE,
-	TRANS_QUINT   = Tween.TRANS_QUINT,
-	TRANS_QUART   = Tween.TRANS_QUART,
-	TRANS_QUAD    = Tween.TRANS_QUAD,
-	TRANS_EXPO    = Tween.TRANS_EXPO,
-	TRANS_ELASTIC = Tween.TRANS_ELASTIC,
-	TRANS_CUBIC   = Tween.TRANS_CUBIC,
-	TRANS_CIRC    = Tween.TRANS_CIRC,
-	TRANS_BOUNCE  = Tween.TRANS_BOUNCE,
-	TRANS_BACK    = Tween.TRANS_BACK,
-	}
-
 ## EXPORTED VARIABLES
 
 export (int)         var particles = 8      ## Number of particles emitted for each "shot"
 export (PackedScene) var particle_scene     ## Scene instanced and attached to each rigidbody
 export (bool)        var autostart = false  ## automatically start particles when add to tree
+export (bool)        var oneshot = false
+export (float, 1)    var explosiveness = 0
+
 
 ## emit properties
 export (float)       var lifetime = 1
@@ -53,13 +35,21 @@ func _ready():
 
 func _start():
 	randomize()
+	var start_time = OS.get_ticks_msec()
 	for i in range(particles):
-		var particle      = particle_scene.instance()
+		var particle = particle_scene.instance()
 		if particle.get_class() != 'RigidBody2D':
 			printerr("Error: Root node of instanced scene must be a 'RigidBody2D', not '"
 				+ particle.get_class()) + "'"
 		_initialize_particle(particle)
 		add_child(particle)
+		var emit_delay = ( 1 - explosiveness ) * ( lifetime / float(particles) )
+		if abs(emit_delay) > 0.01:
+			yield(get_tree().create_timer(emit_delay), "timeout")
+	var duration = OS.get_ticks_msec() - start_time
+	yield(get_tree().create_timer( lifetime - float(duration) / 1000 ), "timeout")
+	if ! oneshot:
+		_start()
 
 func _initialize_particle(p):
 
@@ -84,6 +74,7 @@ func _initialize_particle(p):
 
 	## change color over time
 	if color:
+		p.modulate = color.colors[0]
 		for i in range(color.offsets.size() - 1):
 			var tween_time = color.offsets[i+1] * lifetime_inst - \
 				color.offsets[i] * lifetime_inst
@@ -93,7 +84,3 @@ func _initialize_particle(p):
 				Tween.EASE_IN, color.offsets[i] * lifetime_inst)
 			tween.start()
 			p.add_child(tween)
-
-	## add delay between particle emits
-
-	## add oneshot

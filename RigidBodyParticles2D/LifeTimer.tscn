@@ -2,7 +2,7 @@
 
 [ext_resource path="res://RigidBodyParticles2D/LifeTimer.gd" type="Script" id=1]
 
-[node name="LifeTimer" type="Timer"]
+[node name="LifeTimer" type="Timer" index="0"]
 
 process_mode = 1
 wait_time = 1.0
