@@ -10,6 +10,7 @@ extends Node2D
 ##     - a Sprite that stretches based on speed
 ##     - a Sprite that rotates based on angle
 ##  - add Tweens for RigidBody2D properties (gravity scale, bounce, friction, ...)
+##  - add a start()/play()/emit() method
 
 ## ENUMS
 
@@ -41,6 +42,7 @@ var iteration = 0
 
 func _ready():
 	randomize()
+	$Restarter.connect("timeout", self, "_start")
 	if autostart:
 		_start()
 
@@ -48,7 +50,6 @@ func _start():
 
 	if ! oneshot:
 		$Restarter.wait_time = lifetime
-		$Restarter.connect("timeout", self, "_start")
 		$Restarter.start()
 
 	var emit_delay = ( 1 - explosiveness ) * ( lifetime / float(particles) )
