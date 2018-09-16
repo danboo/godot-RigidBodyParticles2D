@@ -33,7 +33,7 @@ extents = Vector2( 256, 32 )
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
-[node name="ProjectExample" type="Node"]
+[node name="ProjectExample" type="Node" index="0"]
 
 script = SubResource( 1 )
 
@@ -67,6 +67,7 @@ _sections_unfolded = [ "Transform" ]
 
 _sections_unfolded = [ "Transform" ]
 particle_scene = ExtResource( 2 )
+autostart = true
 particle_lifetime = 3.0
 emit_angle = 360.0
 emit_angle_random = 1.0

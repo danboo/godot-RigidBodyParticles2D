@@ -2,8 +2,9 @@ extends Node2D
 
 ## EXPORTED VARIABLES
 
-export (int)         var particles = 8  ## Number of particles emitted for each "shot"
-export (PackedScene) var particle_scene ## Scene instanced and attached to each rigidbody
+export (int)         var particles = 8      ## Number of particles emitted for each "shot"
+export (PackedScene) var particle_scene     ## Scene instanced and attached to each rigidbody
+export (bool)        var autostart = false  ## automatically start particles when add to tree
 
 ## emit properties
 export (float)       var particle_lifetime = 1
@@ -17,11 +18,16 @@ export (float, 1)    var emit_impulse_random = 0
 var life_timer_scene = load("res://RigidBodyParticles2D/LifeTimer.tscn")
 
 func _ready():
+	if autostart:
+		_start()
+
+func _start():
 	randomize()
 	for i in range(particles):
 		var particle      = particle_scene.instance()
 		if particle.get_class() != 'RigidBody2D':
-			printerr("Error: Root node of instanced scene must be a 'RigidBody2D', not " + particle.get_class())
+			printerr("Error: Root node of instanced scene must be a 'RigidBody2D', not '"
+				+ particle.get_class()) + "'"
 		_initialize_particle(particle)
 		add_child(particle)
 
@@ -51,6 +57,3 @@ func _initialize_particle(p):
 	## add delay between particle emits
 
 	## add oneshot
-
-	## add autoplay
-

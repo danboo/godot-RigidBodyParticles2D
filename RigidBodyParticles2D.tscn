@@ -7,6 +7,7 @@
 script = ExtResource( 1 )
 particles = 8
 particle_scene = null
+autostart = false
 particle_lifetime = 1
 emit_angle = 0
 emit_angle_random = 0
