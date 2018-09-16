@@ -33,7 +33,7 @@ extents = Vector2( 256, 32 )
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
-[node name="ProjectExample" type="Node" index="0"]
+[node name="ProjectExample" type="Node"]
 
 script = SubResource( 1 )
 
@@ -73,12 +73,6 @@ emit_angle = 360.0
 emit_angle_random = 1.0
 emit_impulse = 300.0
 emit_impulse_random = 1.0
-scale_start = Vector2( 1, 1 )
-scale_start_random = 1.0
-scale_finish = Vector2( 1, 1 )
-scale_finish_random = 1.0
-scale_transition = 2
-scale_ease = 2
 
 [node name="Floor" type="Node2D" parent="." index="1"]
 

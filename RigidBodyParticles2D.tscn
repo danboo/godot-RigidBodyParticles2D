@@ -15,11 +15,5 @@ emit_angle = 0
 emit_angle_random = 0
 emit_impulse = 0
 emit_impulse_random = 0
-scale_start = null
-scale_start_random = 0
-scale_finish = null
-scale_finish_random = 0
-scale_transition = null
-scale_ease = null
 
 

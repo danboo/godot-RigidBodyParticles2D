@@ -39,13 +39,6 @@ export (float, 1)    var emit_angle_random = 0
 export (float)       var emit_impulse = 0
 export (float, 1)    var emit_impulse_random = 0
 
-export (Vector2)        var scale_start
-export (float, 1)       var scale_start_random = 0
-export (Vector2)        var scale_finish
-export (float, 1)       var scale_finish_random = 0
-export (TransitionType) var scale_transition
-export (EaseType)       var scale_ease
-
 ## PRIVATE VARIABLES
 
 var life_timer_scene = load("res://RigidBodyParticles2D/LifeTimer.tscn")
@@ -84,22 +77,6 @@ func _initialize_particle(p):
 	life_timer.wait_time = lifetime_inst
 	life_timer.particle  = p
 	p.add_child(life_timer)
-
-	## change scale over time
-	if scale_start and scale_finish:
-
-		var scale_start_rand = scale_start * randf() * scale_start_random
-		var scale_start_inst = scale_start + scale_start_rand
-
-		var scale_finish_rand = scale_finish * randf() * scale_finish_random
-		var scale_finish_inst = scale_finish + scale_finish_rand
-
-		var scale_tween = Tween.new()
-		scale_tween.interpolate_property(p, "scale", scale_start_inst,
-			scale_finish_inst, lifetime_inst, scale_transition, scale_ease)
-
-		scale_tween.start()
-		p.add_child(scale_tween)
 
 
 	## change color over time
