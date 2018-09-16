@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://RigidBodyParticles2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ParticleSceneExample.tscn" type="PackedScene" id=2]
@@ -22,6 +22,11 @@ func _ready():
 #	# Update game logic here.
 #	pass
 "
+
+[sub_resource type="Gradient" id=4]
+
+offsets = PoolRealArray( 0, 0.862903, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -65,14 +70,16 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="RigidBodyParticles2D" parent="Camera2D" index="0" instance=ExtResource( 1 )]
 
+_sections_unfolded = [ "Transform", "Visibility" ]
 particle_scene = ExtResource( 2 )
 autostart = true
-lifetime = 5.0
+lifetime = 2.0
 lifetime_random = 1.0
 angle = 360.0
 angle_random = 1.0
 impulse = 200.0
 impulse_random = 1.0
+color = SubResource( 4 )
 
 [node name="Floor" type="Node2D" parent="." index="1"]
 
@@ -106,7 +113,7 @@ _sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform",
 [node name="Wall" type="Node2D" parent="." index="2"]
 
 position = Vector2( 256, 0 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Wall" index="0"]
 

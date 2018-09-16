@@ -15,5 +15,6 @@ angle = 0
 angle_random = 0
 impulse = 0
 impulse_random = 0
+color = null
 
 

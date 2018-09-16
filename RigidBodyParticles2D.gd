@@ -34,10 +34,14 @@ export (bool)        var autostart = false  ## automatically start particles whe
 ## emit properties
 export (float)       var lifetime = 1
 export (float, 1)    var lifetime_random = 0
+
 export (float, 360)  var angle = 0
 export (float, 1)    var angle_random = 0
+
 export (float)       var impulse = 0
 export (float, 1)    var impulse_random = 0
+
+export (Gradient)    var color
 
 ## PRIVATE VARIABLES
 
@@ -78,8 +82,17 @@ func _initialize_particle(p):
 	life_timer.particle  = p
 	p.add_child(life_timer)
 
-
 	## change color over time
+	if color:
+		for i in range(color.offsets.size() - 1):
+			var tween_time = color.offsets[i+1] * lifetime_inst - \
+				color.offsets[i] * lifetime_inst
+			var tween = Tween.new()
+			tween.interpolate_property(p, "modulate", color.colors[i],
+				color.colors[i+1], tween_time, Tween.TRANS_LINEAR,
+				Tween.EASE_IN, color.offsets[i] * lifetime_inst)
+			tween.start()
+			p.add_child(tween)
 
 	## add delay between particle emits
 
