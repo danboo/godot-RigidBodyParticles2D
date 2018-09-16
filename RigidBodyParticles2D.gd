@@ -7,7 +7,8 @@ export (PackedScene) var particle_scene     ## Scene instanced and attached to e
 export (bool)        var autostart = false  ## automatically start particles when add to tree
 
 ## emit properties
-export (float)       var particle_lifetime = 1
+export (float)       var lifetime = 1
+export (float, 1)    var lifetime_random = 0
 export (float, 360)  var emit_angle = 0
 export (float, 1)    var emit_angle_random = 0
 export (float)       var emit_impulse = 0
@@ -45,8 +46,9 @@ func _initialize_particle(p):
 	p.apply_impulse( Vector2(0,0), angle_vector * impulse )
 
 	## set lifetime
+	var lifetime_rand    = lifetime * randf() * lifetime_random
 	var life_timer       = life_timer_scene.instance()
-	life_timer.wait_time = particle_lifetime
+	life_timer.wait_time = lifetime + lifetime_rand
 	life_timer.particle  = p
 	p.add_child(life_timer)
 
