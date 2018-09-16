@@ -34,10 +34,10 @@ export (bool)        var autostart = false  ## automatically start particles whe
 ## emit properties
 export (float)       var lifetime = 1
 export (float, 1)    var lifetime_random = 0
-export (float, 360)  var emit_angle = 0
-export (float, 1)    var emit_angle_random = 0
-export (float)       var emit_impulse = 0
-export (float, 1)    var emit_impulse_random = 0
+export (float, 360)  var angle = 0
+export (float, 1)    var angle_random = 0
+export (float)       var impulse = 0
+export (float, 1)    var impulse_random = 0
 
 ## PRIVATE VARIABLES
 
@@ -60,19 +60,19 @@ func _start():
 func _initialize_particle(p):
 
     ## impulse angle
-	var angle_rand   = emit_angle * randf() * emit_angle_random
-	var angle        = deg2rad(emit_angle + angle_rand)
-	var angle_vector = Vector2( cos(angle), sin(angle) ).normalized()
+	var angle_add    = angle * randf() * angle_random
+	var angle_inst   = deg2rad(angle + angle_add)
+	var angle_vector = Vector2( cos(angle_inst), sin(angle_inst) ).normalized()
 
 	## impulse magnitude
-	var impulse_rand = emit_impulse * randf() * emit_impulse_random
-	var impulse      = emit_impulse + impulse_rand
+	var impulse_add  = impulse * randf() * impulse_random
+	var impulse_inst = impulse + impulse_add
 
-	p.apply_impulse( Vector2(0,0), angle_vector * impulse )
+	p.apply_impulse( Vector2(0,0), angle_vector * impulse_inst )
 
 	## set lifetime
-	var lifetime_rand    = lifetime * randf() * lifetime_random
-	var lifetime_inst    = lifetime + lifetime_rand
+	var lifetime_add     = lifetime * randf() * lifetime_random
+	var lifetime_inst    = lifetime + lifetime_add
 	var life_timer       = life_timer_scene.instance()
 	life_timer.wait_time = lifetime_inst
 	life_timer.particle  = p

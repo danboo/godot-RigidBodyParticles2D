@@ -33,7 +33,7 @@ extents = Vector2( 256, 32 )
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
-[node name="ProjectExample" type="Node"]
+[node name="ProjectExample" type="Node" index="0"]
 
 script = SubResource( 1 )
 
@@ -69,10 +69,10 @@ particle_scene = ExtResource( 2 )
 autostart = true
 lifetime = 5.0
 lifetime_random = 1.0
-emit_angle = 360.0
-emit_angle_random = 1.0
-emit_impulse = 300.0
-emit_impulse_random = 1.0
+angle = 360.0
+angle_random = 1.0
+impulse = 200.0
+impulse_random = 1.0
 
 [node name="Floor" type="Node2D" parent="." index="1"]
 

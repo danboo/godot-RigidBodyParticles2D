@@ -11,9 +11,9 @@ particle_scene = null
 autostart = false
 lifetime = 1
 lifetime_random = 0
-emit_angle = 0
-emit_angle_random = 0
-emit_impulse = 0
-emit_impulse_random = 0
+angle = 0
+angle_random = 0
+impulse = 0
+impulse_random = 0
 
 
