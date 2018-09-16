@@ -1,6 +1,9 @@
 extends Node2D
 
-## can i export Tween.EaseType and Tween.TransitionType directly?
+## TODO
+##  - use a Timer node to handle auto-restarts
+##  - change randomness calc to be value +/- value * randf() * randomness
+##  - would a Vector2() be more intuitive than "angle"
 
 ## ENUMS
 
@@ -8,19 +11,19 @@ extends Node2D
 
 export (int)         var particles = 8      ## Number of particles emitted for each "shot"
 export (PackedScene) var particle_scene     ## Scene instanced and attached to each rigidbody
-export (bool)        var autostart = false  ## automatically start particles when add to tree
+export (bool)        var autostart = true   ## automatically start particles when add to tree
 export (bool)        var oneshot = false
 export (float, 1)    var explosiveness = 0
 
 
 ## emit properties
-export (float)       var lifetime = 1
+export (float)       var lifetime = 2
 export (float, 1)    var lifetime_random = 0
 
 export (float, 360)  var angle = 0
 export (float, 1)    var angle_random = 0
 
-export (float)       var impulse = 0
+export (float)       var impulse = 200
 export (float, 1)    var impulse_random = 0
 
 export (Gradient)    var color

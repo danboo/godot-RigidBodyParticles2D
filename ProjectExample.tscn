@@ -25,8 +25,8 @@ func _ready():
 
 [sub_resource type="Gradient" id=4]
 
-offsets = PoolRealArray( 0, 0.862903, 1 )
-colors = PoolColorArray( 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+offsets = PoolRealArray( 0, 0.766129, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -71,14 +71,14 @@ _sections_unfolded = [ "Transform" ]
 [node name="RigidBodyParticles2D" parent="Camera2D" index="0" instance=ExtResource( 1 )]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
-particles = 2
 particle_scene = ExtResource( 2 )
 autostart = true
-explosiveness = 1.0
+explosiveness = 0.5
+lifetime = 2
 lifetime_random = 1.0
-angle = 360.0
+angle = 180.0
 angle_random = 1.0
-impulse = 200.0
+impulse = 200
 impulse_random = 1.0
 color = SubResource( 4 )
 

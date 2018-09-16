@@ -8,14 +8,14 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 particles = 8
 particle_scene = null
-autostart = false
+autostart = true
 oneshot = false
 explosiveness = 0
-lifetime = 1
+lifetime = 2
 lifetime_random = 0
 angle = 0
 angle_random = 0
-impulse = 0
+impulse = 200
 impulse_random = 0
 color = null
 
