@@ -72,14 +72,12 @@ _sections_unfolded = [ "Transform" ]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
 particle_scene = ExtResource( 2 )
-autostart = true
 explosiveness = 0.5
-lifetime = 2
-lifetime_random = 1.0
-angle = 180.0
-angle_random = 1.0
-impulse = 200
-impulse_random = 1.0
+lifetime_random = 0.5
+angle = -90.0
+angle_random = 0.5
+impulse = 300.0
+impulse_random = 0.25
 color = SubResource( 4 )
 
 [node name="Floor" type="Node2D" parent="." index="1"]

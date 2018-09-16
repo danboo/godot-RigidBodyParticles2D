@@ -2,7 +2,6 @@ extends Node2D
 
 ## TODO
 ##  - use a Timer node to handle auto-restarts
-##  - change randomness calc to be value +/- value * randf() * randomness
 ##  - would a Vector2() be more intuitive than "angle"
 
 ## ENUMS
@@ -20,8 +19,8 @@ export (float, 1)    var explosiveness = 0
 export (float)       var lifetime = 2
 export (float, 1)    var lifetime_random = 0
 
-export (float, 360)  var angle = 0
-export (float, 1)    var angle_random = 0
+export (float, -360, 360) var angle = 0
+export (float, 1)         var angle_random = 0
 
 export (float)       var impulse = 200
 export (float, 1)    var impulse_random = 0
@@ -54,22 +53,25 @@ func _start():
 	if ! oneshot:
 		_start()
 
+func _randomize(value, randomness):
+	var rand_unit = ( 2 * randf() - 1 ) ## ranges from -1,+1
+	var rand_mult = rand_unit * randomness
+	var rand_add  = value * rand_mult
+	return value + rand_add
+
 func _initialize_particle(p):
 
     ## impulse angle
-	var angle_add    = angle * randf() * angle_random
-	var angle_inst   = deg2rad(angle + angle_add)
-	var angle_vector = Vector2( cos(angle_inst), sin(angle_inst) ).normalized()
+	var angle_inst   = _randomize(angle, angle_random)
+	var angle_rad    = deg2rad(angle_inst)
+	var angle_vector = Vector2( cos(angle_rad), sin(angle_rad) ).normalized()
 
 	## impulse magnitude
-	var impulse_add  = impulse * randf() * impulse_random
-	var impulse_inst = impulse + impulse_add
-
+	var impulse_inst = _randomize(impulse,  impulse_random)
 	p.apply_impulse( Vector2(0,0), angle_vector * impulse_inst )
 
 	## set lifetime
-	var lifetime_add     = lifetime * randf() * lifetime_random
-	var lifetime_inst    = lifetime + lifetime_add
+	var lifetime_inst    = _randomize(lifetime, lifetime_random)
 	var life_timer       = life_timer_scene.instance()
 	life_timer.wait_time = lifetime_inst
 	life_timer.particle  = p
