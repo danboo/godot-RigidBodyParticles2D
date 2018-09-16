@@ -72,11 +72,11 @@ _sections_unfolded = [ "Transform" ]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
 particle_scene = ExtResource( 2 )
-explosiveness = 0.5
+explosiveness = 0.8
 lifetime_random = 0.5
-angle = -90.0
-angle_random = 0.5
-impulse = 300.0
+angle = 180.0
+angle_random = 1.0
+impulse = 1000.0
 impulse_random = 0.25
 color = SubResource( 4 )
 

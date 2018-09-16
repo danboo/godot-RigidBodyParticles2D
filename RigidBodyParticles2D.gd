@@ -4,6 +4,7 @@ extends Node2D
 ##  - document interface
 ##  - create a prettier example (falling stones that create sparks)
 ##  - rename exported variables for consistency with Particles2D
+##  - rework project layout (src/, examples/)
 ##  - would a Vector2() be more intuitive than "angle"
 ##  - think about how user can introspect Particle properties. for example
 ##     - a custom Tween that operates on lifetime
@@ -11,6 +12,7 @@ extends Node2D
 ##     - a Sprite that rotates based on angle
 ##  - add Tweens for RigidBody2D properties (gravity scale, bounce, friction, ...)
 ##  - add a start()/play()/emit() method
+##  - add emit shapes in addition to Point (circle, ellipse, rectangle)
 
 ## ENUMS
 
