@@ -4,7 +4,6 @@
 [ext_resource path="res://example/Particle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
-
 [sub_resource type="GDScript" id=1]
 
 script/source = "extends Node
@@ -39,7 +38,7 @@ extents = Vector2( 256, 32 )
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = SubResource( 1 )
 

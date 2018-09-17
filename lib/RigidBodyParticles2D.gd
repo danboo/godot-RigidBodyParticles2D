@@ -45,11 +45,12 @@ export (Gradient)    var color
 
 ## PRIVATE VARIABLES
 
-var life_timer_scene
+onready var life_timer_scene = load(filename.get_base_dir()
+	+ "/ParticleLifeTimer.tscn")
+
 var iteration = 0
 
 func _ready():
-	life_timer_scene = load(filename.get_base_dir() + "/ParticleLifeTimer.tscn")
 	randomize()
 	$Restarter.connect("timeout", self, "_start")
 	if autostart:
