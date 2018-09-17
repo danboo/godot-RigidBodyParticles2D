@@ -72,6 +72,7 @@ _sections_unfolded = [ "Transform" ]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
 particles = 32
+particles_random = 0.2
 particle_scene = ExtResource( 2 )
 explosiveness = 1.0
 lifetime = 1.0

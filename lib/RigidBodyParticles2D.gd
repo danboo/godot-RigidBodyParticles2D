@@ -25,6 +25,7 @@ extends Node2D
 ## EXPORTED VARIABLES
 
 export (int)         var particles = 8      ## Number of particles emitted for each "shot"
+export (float, 1)    var particles_random = 0
 export (PackedScene) var particle_scene     ## Scene instanced and attached to each rigidbody
 export (bool)        var autostart = true   ## automatically start particles when add to tree
 export (bool)        var one_shot = false
@@ -63,8 +64,9 @@ func _start():
 		$Restarter.start()
 
 	var emit_delay = ( 1 - explosiveness ) * ( lifetime / float(particles) )
+	var particle_count = _randomize(particles, particles_random)
 
-	for i in range(particles):
+	for i in range(particle_count):
 		var particle = particle_scene.instance()
 		if iteration == 0 && particle.get_class() != 'RigidBody2D':
 			printerr("Error: Root node of 'Particle Scene' must be a 'RigidBody2D', not '"
