@@ -4,9 +4,9 @@ extends Node2D
 ##  - document interface
 ##  - create a prettier example (falling stones that create sparks)
 ##     - spark light should tween color gradient
+##     - light intensity should tween along with lifetime
 ##  - rename exported variables for consistency with Particles2D
 ##  - rework project layout (src/, examples/)
-##  - would a Vector2() be more intuitive than "angle"
 ##  - think about how user can introspect Particle properties. for example
 ##     - a custom Tween that operates on lifetime
 ##     - a Sprite that stretches based on speed
@@ -16,6 +16,9 @@ extends Node2D
 ##  - add emit shapes in addition to Point (points, circle, ellipse, rectangle)
 ##  - add Tween force vector (magnitude, direction and rotation)
 ##  - add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
+##  - is there a better way to make lib/ relocatable?
+##     - do we assume that they will drop lib in their root?
+##     - is there a res:// syntax for a path relative to a scene?
 
 ## ENUMS
 
@@ -42,10 +45,11 @@ export (Gradient)    var color
 
 ## PRIVATE VARIABLES
 
-var life_timer_scene = load("res://RigidBodyParticles2D/LifeTimer.tscn")
+var life_timer_scene
 var iteration = 0
 
 func _ready():
+	life_timer_scene = load(filename.get_base_dir() + "/ParticleLifeTimer.tscn")
 	randomize()
 	$Restarter.connect("timeout", self, "_start")
 	if autostart:

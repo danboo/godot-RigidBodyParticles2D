@@ -1,8 +1,9 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://RigidBodyParticles2D.gd" type="Script" id=1]
+[ext_resource path="res://lib/RigidBodyParticles2D.gd" type="Script" id=1]
 
-[node name="RigidBodyParticles2D" type="Node2D"]
+
+[node name="RigidBodyParticles2D" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
