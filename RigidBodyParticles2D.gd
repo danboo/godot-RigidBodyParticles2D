@@ -3,6 +3,7 @@ extends Node2D
 ## TODO
 ##  - document interface
 ##  - create a prettier example (falling stones that create sparks)
+##     - spark light should tween color gradient
 ##  - rename exported variables for consistency with Particles2D
 ##  - rework project layout (src/, examples/)
 ##  - would a Vector2() be more intuitive than "angle"
@@ -12,7 +13,9 @@ extends Node2D
 ##     - a Sprite that rotates based on angle
 ##  - add Tweens for RigidBody2D properties (gravity scale, bounce, friction, ...)
 ##  - add a start()/play()/emit() method
-##  - add emit shapes in addition to Point (circle, ellipse, rectangle)
+##  - add emit shapes in addition to Point (points, circle, ellipse, rectangle)
+##  - add Tween force vector (magnitude, direction and rotation)
+##  - add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
 
 ## ENUMS
 
@@ -21,7 +24,7 @@ extends Node2D
 export (int)         var particles = 8      ## Number of particles emitted for each "shot"
 export (PackedScene) var particle_scene     ## Scene instanced and attached to each rigidbody
 export (bool)        var autostart = true   ## automatically start particles when add to tree
-export (bool)        var oneshot = false
+export (bool)        var one_shot = false
 export (float, 1)    var explosiveness = 0
 
 ## EMIT PROPERTIES
@@ -50,7 +53,7 @@ func _ready():
 
 func _start():
 
-	if ! oneshot:
+	if ! one_shot:
 		$Restarter.wait_time = lifetime
 		$Restarter.start()
 
