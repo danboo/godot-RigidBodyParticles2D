@@ -6,7 +6,6 @@ extends Node2D
 ##     - spark light should tween color gradient
 ##     - light intensity should tween along with lifetime
 ##  - rename exported variables for consistency with Particles2D
-##  - rework project layout (src/, examples/)
 ##  - think about how user can introspect Particle properties. for example
 ##     - a custom Tween that operates on lifetime
 ##     - a Sprite that stretches based on speed
@@ -34,7 +33,7 @@ export (float, 1)    var explosiveness = 0
 export (float)       var lifetime = 2
 export (float, 1)    var lifetime_random = 0
 
-export (float, -360, 360) var angle = 0
+export (float, -360, 360) var angle_degrees = 0
 export (float, 1)         var angle_random = 0
 
 export (float)       var impulse = 200
@@ -44,8 +43,8 @@ export (Gradient)    var color
 
 ## PRIVATE VARIABLES
 
-var iteration = 0
-var life_timer_script = _life_timer_script()
+var _iteration = 0
+var _life_timer_script = _life_timer_script()
 
 func _ready():
 	randomize()
@@ -64,7 +63,7 @@ func _start():
 
 	for i in range(particle_count):
 		var particle = particle_scene.instance()
-		if iteration == 0 && particle.get_class() != 'RigidBody2D':
+		if _iteration == 0 && particle.get_class() != 'RigidBody2D':
 			printerr("Error: Root node of 'Particle Scene' must be a 'RigidBody2D', not '"
 				+ particle.get_class()) + "'"
 		_initialize_particle(particle)
@@ -72,7 +71,7 @@ func _start():
 		if abs(emit_delay) > 0.01:
 			yield(get_tree().create_timer(emit_delay), "timeout")
 
-	iteration += 1
+	_iteration += 1
 
 func _randomize(value, randomness):
 	var rand_unit = ( 2 * randf() - 1 ) ## ranges from -1,+1
@@ -83,7 +82,7 @@ func _randomize(value, randomness):
 func _initialize_particle(p):
 
     ## impulse angle
-	var angle_inst   = _randomize(angle, angle_random)
+	var angle_inst   = _randomize(angle_degrees, angle_random)
 	var angle_rad    = deg2rad(angle_inst)
 	var angle_vector = Vector2( cos(angle_rad), sin(angle_rad) ).normalized()
 
@@ -94,7 +93,7 @@ func _initialize_particle(p):
 	## set lifetime
 	var lifetime_inst    = _randomize(lifetime, lifetime_random)
 	var life_timer       = Timer.new()
-	life_timer.set_script(life_timer_script)
+	life_timer.set_script(_life_timer_script)
 	life_timer.wait_time = lifetime_inst
 	life_timer.autostart = true
 	life_timer.particle  = p

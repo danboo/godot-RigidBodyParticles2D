@@ -7,5 +7,5 @@ func _ready():
 
 func _process(delta):
 	var velocity = rigid_body.linear_velocity
-	rotation = velocity.angle()
-	$Tail.scale = Vector2(1, velocity.length() / 100)
+	rotation     = velocity.angle()
+	$Tail.scale  = Vector2(2, min( 4, velocity.length() / 100 ) )
