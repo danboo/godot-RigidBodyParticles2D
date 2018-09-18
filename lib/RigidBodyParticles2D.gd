@@ -16,9 +16,7 @@ extends Node2D
 ##  - add emit shapes in addition to Point (points, circle, ellipse, rectangle)
 ##  - add Tween force vector (magnitude, direction and rotation)
 ##  - add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
-##  - is there a better way to make lib/ relocatable?
-##     - do we assume that they will drop lib in their root?
-##     - is there a res:// syntax for a path relative to a scene?
+##  - after instancing a particle from the user scene, attach a single node that is used for attaching other nodes that need to be cleaned
 
 ## ENUMS
 
@@ -46,10 +44,8 @@ export (Gradient)    var color
 
 ## PRIVATE VARIABLES
 
-onready var life_timer_scene = load(filename.get_base_dir()
-	+ "/ParticleLifeTimer.tscn")
-
 var iteration = 0
+var life_timer_script = _life_timer_script()
 
 func _ready():
 	randomize()
@@ -97,8 +93,10 @@ func _initialize_particle(p):
 
 	## set lifetime
 	var lifetime_inst    = _randomize(lifetime, lifetime_random)
-	var life_timer       = life_timer_scene.instance()
+	var life_timer       = Timer.new()
+	life_timer.set_script(life_timer_script)
 	life_timer.wait_time = lifetime_inst
+	life_timer.autostart = true
 	life_timer.particle  = p
 	p.add_child(life_timer)
 
@@ -114,3 +112,21 @@ func _initialize_particle(p):
 				Tween.EASE_IN, color.offsets[i] * lifetime_inst)
 			tween.start()
 			p.add_child(tween)
+
+func _life_timer_script():
+	var gdscript = GDScript.new()
+	gdscript.set_source_code(_life_timer_script_text())
+	gdscript.reload()
+	return gdscript
+	
+func _life_timer_script_text():
+	return """
+extends Timer
+var particle
+
+func _ready():
+	connect("timeout", self, "_on_timeout")
+
+func _on_timeout():
+	particle.queue_free()
+"""
