@@ -118,7 +118,7 @@ func _life_timer_script():
 	gdscript.set_source_code(_life_timer_script_text())
 	gdscript.reload()
 	return gdscript
-	
+
 func _life_timer_script_text():
 	return """
 extends Timer
