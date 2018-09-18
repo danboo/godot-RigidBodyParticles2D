@@ -4,8 +4,6 @@
 [ext_resource path="res://examples/sparks/Particle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
-
-
 [sub_resource type="GDScript" id=1]
 
 script/source = "extends Node
@@ -40,7 +38,7 @@ extents = Vector2( 256, 32 )
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 script = SubResource( 1 )
 
@@ -73,11 +71,10 @@ _sections_unfolded = [ "Transform" ]
 [node name="RigidBodyParticles2D" parent="Camera2D" index="0" instance=ExtResource( 1 )]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
-particles = 2
-particles_random = 0.0
+particles = 100
+particles_random = 0.4
 particle_scene = ExtResource( 2 )
-explosiveness = 1.0
-lifetime = 1.0
+explosiveness = 0.4
 lifetime_random = 0.8
 angle = -90.0
 angle_random = 0.5

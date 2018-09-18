@@ -59,8 +59,8 @@ func _start():
 		$Restarter.wait_time = lifetime
 		$Restarter.start()
 
-	var emit_delay = ( 1 - explosiveness ) * ( lifetime / float(particles) )
 	var particle_count = _randomize(particles, particles_random)
+	var emit_delay     = ( 1 - explosiveness ) * ( lifetime / float(particle_count) )
 
 	for i in range(particle_count):
 		var particle = particle_scene.instance()
