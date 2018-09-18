@@ -1,0 +1,146 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/RigidBodyParticles2D/RigidBodyParticles2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://examples/sparks/Particle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
+	pass
+
+#func _process(delta):
+#	# Called every frame. Delta is time since last frame.
+#	# Update game logic here.
+#	pass
+"
+
+[sub_resource type="Gradient" id=2]
+
+offsets = PoolRealArray( 0, 0.094086, 0.268817, 0.443548, 0.766129, 1 )
+colors = PoolColorArray( 0.99353, 1, 0.792969, 1, 1, 0.960938, 0, 1, 1, 0.703125, 0, 1, 1, 0.375, 0, 1, 1, 0.117188, 0, 1, 1, 1, 1, 0 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 256, 32 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 128 )
+
+[node name="Main" type="Node" index="0"]
+
+script = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="." index="0"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="RigidBodyParticles2D" parent="Camera2D" index="0" instance=ExtResource( 1 )]
+
+_sections_unfolded = [ "Transform", "Visibility" ]
+particles = 2
+particles_random = 0.0
+particle_scene = ExtResource( 2 )
+explosiveness = 1.0
+lifetime = 1.0
+lifetime_random = 0.8
+angle = -90.0
+angle_random = 0.5
+impulse = 1000.0
+impulse_random = 0.75
+color = SubResource( 2 )
+
+[node name="Floor" type="Node2D" parent="." index="1"]
+
+position = Vector2( 0, 64 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D" index="0"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="Floor" index="1"]
+
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 64 )
+region_filter_clip = true
+_sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility" ]
+
+[node name="Wall" type="Node2D" parent="." index="2"]
+
+position = Vector2( 224, -96 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D" index="0"]
+
+shape = SubResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="Wall" index="1"]
+
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 64, 256 )
+region_filter_clip = true
+_sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility" ]
+
+

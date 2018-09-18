@@ -11,12 +11,8 @@ config_version=3
 [application]
 
 config/name="RigidBodyParticles2D"
-run/main_scene="res://example/Main.tscn"
+run/main_scene="res://examples/sparks/Main.tscn"
 config/icon="res://icon.png"
-
-[debug]
-
-settings/stdout/print_fps=true
 
 [display]
 
