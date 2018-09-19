@@ -19,3 +19,25 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 **Acknowledgements:**
 
  * Spark sprites from Kenney's Particle Pack (https://kenney.nl/assets/particle-pack).
+
+**TODO**
+
+* document interface
+* create a prettier example (falling stones that create sparks)
+   * spark light should tween color gradient
+   * light intensity should tween along with lifetime
+* rename exported variables for consistency with Particles2D
+* think about how user can introspect Particle properties. for example
+   * a custom Tween that operates on lifetime
+   * a Sprite that stretches based on speed
+   * a Sprite that rotates based on angle
+* add Tweens for RigidBody2D properties (gravity scale, bounce, friction, ...)
+* add a start()/play()/emit() method
+* add emit shapes in addition to Point (points, circle, ellipse, rectangle)
+* add Tween force vector (magnitude, direction and rotation)
+* add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
+* after instancing a particle from the user scene, attach a single node that is used for attaching other nodes that need to be cleaned
+* add self_modulate gradient tween
+* document and link to Kenney assets
+* use setget for properties
+
