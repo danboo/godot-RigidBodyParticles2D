@@ -16,6 +16,8 @@ extends Node2D
 ##  - add Tween force vector (magnitude, direction and rotation)
 ##  - add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
 ##  - after instancing a particle from the user scene, attach a single node that is used for attaching other nodes that need to be cleaned
+##  - add self_modulate gradient tween
+##  - document and link to Kenney assets
 
 ## ENUMS
 
@@ -30,11 +32,11 @@ export (float, 1)    var explosiveness = 0
 
 ## EMIT PROPERTIES
 
+export (float, -360, 360) var angle_degrees = 0
+export (float, -360, 360) var spread_degrees = 0
+
 export (float)       var lifetime = 2
 export (float, 1)    var lifetime_random = 0
-
-export (float, -360, 360) var angle_degrees = 0
-export (float, 1)         var angle_random = 0
 
 export (float)       var impulse = 200
 export (float, 1)    var impulse_random = 0
@@ -82,7 +84,7 @@ func _randomize(value, randomness):
 func _initialize_particle(p):
 
     ## impulse angle
-	var angle_inst   = _randomize(angle_degrees, angle_random)
+	var angle_inst   = angle_degrees + spread_degrees * ( 2 * randf() -1 )
 	var angle_rad    = deg2rad(angle_inst)
 	var angle_vector = Vector2( cos(angle_rad), sin(angle_rad) ).normalized()
 
@@ -96,6 +98,7 @@ func _initialize_particle(p):
 	life_timer.set_script(_life_timer_script)
 	life_timer.wait_time = lifetime_inst
 	life_timer.autostart = true
+	life_timer.one_shot  = true
 	life_timer.particle  = p
 	p.add_child(life_timer)
 
