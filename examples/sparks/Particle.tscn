@@ -1,16 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://examples/sparks/assets/light_01.png" type="Texture" id=1]
-[ext_resource path="res://examples/sparks/SparkSprite.gd" type="Script" id=2]
+[ext_resource path="res://examples/sparks/Particle.gd" type="Script" id=1]
+[ext_resource path="res://examples/sparks/assets/light_01.png" type="Texture" id=2]
 [ext_resource path="res://examples/sparks/assets/trace_02.png" type="Texture" id=3]
 [ext_resource path="res://examples/sparks/assets/star_09.png" type="Texture" id=4]
+
+[sub_resource type="Gradient" id=2]
+
+offsets = PoolRealArray( 0, 0.150538, 0.38172, 0.744624, 1 )
+colors = PoolColorArray( 1, 0.996643, 0.914063, 1, 0.957031, 0.920231, 0.0149536, 1, 1, 0.679688, 0, 1, 0.960938, 0.180293, 0.0525513, 1, 0, 0, 0, 0 )
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 1.5
 
-[node name="Particle" type="RigidBody2D"]
+[node name="Particle" type="RigidBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 0
@@ -30,7 +35,9 @@ linear_velocity = Vector2( 0, 0 )
 linear_damp = 2.0
 angular_velocity = 0.0
 angular_damp = -1.0
-_sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear" ]
+script = ExtResource( 1 )
+_sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear", "Material", "Visibility" ]
+gradient = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 
@@ -40,11 +47,11 @@ shape = SubResource( 1 )
 
 enabled = true
 editor_only = false
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 offset = Vector2( 0, 0 )
 texture_scale = 0.4
 color = Color( 1, 1, 1, 1 )
-energy = 0.2
+energy = 1.0
 mode = 0
 range_height = 0.0
 range_z_min = -1024
@@ -59,13 +66,12 @@ shadow_gradient_length = 0.0
 shadow_filter = 0
 shadow_filter_smooth = 0.0
 shadow_item_cull_mask = 1
-_sections_unfolded = [ "Range" ]
+_sections_unfolded = [ "Range", "Shadow", "Transform", "Visibility", "Z Index" ]
 
 [node name="SparkSprite" type="Node2D" parent="." index="2"]
 
 show_behind_parent = true
 scale = Vector2( 0.02, 0.02 )
-script = ExtResource( 2 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Tail" type="Sprite" parent="SparkSprite" index="0"]
@@ -81,5 +87,14 @@ _sections_unfolded = [ "Offset", "Region", "Transform", "Visibility", "Z Index" 
 
 texture = ExtResource( 4 )
 _sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Modulate" type="Tween" parent="." index="3"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
 
 

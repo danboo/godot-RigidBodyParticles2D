@@ -22,8 +22,6 @@ export (float, 1)    var lifetime_random = 0
 export (float)       var impulse = 200
 export (float, 1)    var impulse_random = 0
 
-export (Gradient)    var color
-
 ## PRIVATE VARIABLES
 
 var _iteration = 0
@@ -76,25 +74,13 @@ func _initialize_particle(p):
 	## set lifetime
 	var lifetime_inst    = _randomize(lifetime, lifetime_random)
 	var life_timer       = Timer.new()
+	life_timer.name      = "RigidBodyParticles2DTimer"
 	life_timer.set_script(_life_timer_script)
 	life_timer.wait_time = lifetime_inst
 	life_timer.autostart = true
 	life_timer.one_shot  = true
 	life_timer.particle  = p
 	p.add_child(life_timer)
-
-	## change color over time
-	if color:
-		p.modulate = color.colors[0]
-		for i in range(color.offsets.size() - 1):
-			var tween_time = color.offsets[i+1] * lifetime_inst - \
-				color.offsets[i] * lifetime_inst
-			var tween = Tween.new()
-			tween.interpolate_property(p, "modulate", color.colors[i],
-				color.colors[i+1], tween_time, Tween.TRANS_LINEAR,
-				Tween.EASE_IN, color.offsets[i] * lifetime_inst)
-			tween.start()
-			p.add_child(tween)
 
 func _life_timer_script():
 	var gdscript = GDScript.new()
