@@ -7,7 +7,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
 
-[node name="Particle" type="RigidBody2D" index="0"]
+[node name="Particle" type="RigidBody2D"]
 
 input_pickable = false
 collision_layer = 0

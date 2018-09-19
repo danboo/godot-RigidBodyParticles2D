@@ -10,6 +10,7 @@ export (PackedScene) var particle_scene     ## Scene instanced and attached to e
 export (bool)        var autostart = true   ## automatically start particles when add to tree
 export (bool)        var one_shot = false
 export (float, 1)    var explosiveness = 0
+export (String)      var tracker_name = "ParticleTracker"
 
 ## EMIT PROPERTIES
 
@@ -74,7 +75,7 @@ func _initialize_particle(p):
 	## set lifetime
 	var lifetime_inst    = _randomize(lifetime, lifetime_random)
 	var life_timer       = Timer.new()
-	life_timer.name      = "RigidBodyParticles2DTimer"
+	life_timer.name      = tracker_name
 	life_timer.set_script(_life_timer_script)
 	life_timer.wait_time = lifetime_inst
 	life_timer.autostart = true

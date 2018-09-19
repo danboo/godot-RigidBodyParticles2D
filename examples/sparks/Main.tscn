@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/RigidBodyParticles2D/RigidBodyParticles2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://examples/sparks/Particle.tscn" type="PackedScene" id=2]
@@ -22,11 +22,6 @@ func _ready():
 #	# Update game logic here.
 #	pass
 "
-
-[sub_resource type="Gradient" id=2]
-
-offsets = PoolRealArray( 0, 0.094086, 0.268817, 0.443548, 0.766129, 1 )
-colors = PoolColorArray( 0.99353, 1, 0.792969, 1, 1, 0.960938, 0, 1, 1, 0.703125, 0, 1, 1, 0.375, 0, 1, 1, 0.117188, 0, 1, 1, 1, 1, 0 )
 
 [sub_resource type="RectangleShape2D" id=3]
 
@@ -75,12 +70,12 @@ particles = 16
 particles_random = 0.4
 particle_scene = ExtResource( 2 )
 explosiveness = 1.0
+tracker_name = "ParticleTracker"
 angle_degrees = -90.0
-spread_degrees = 30.0
+spread_degrees = 45.0
 lifetime_random = 0.8
 impulse = 1000.0
 impulse_random = 0.75
-color = SubResource( 2 )
 
 [node name="Floor" type="Node2D" parent="." index="1"]
 

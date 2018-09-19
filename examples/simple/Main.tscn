@@ -33,7 +33,7 @@ extents = Vector2( 256, 32 )
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
-[node name="Main" type="Node" index="0"]
+[node name="Main" type="Node"]
 
 script = SubResource( 1 )
 
@@ -69,9 +69,10 @@ position = Vector2( 0, -32 )
 particles_random = 0.3
 particle_scene = ExtResource( 2 )
 explosiveness = 0.5
-lifetime_random = 1.0
+tracker_name = "ParticleTracker"
 angle_degrees = -90.0
-angle_random = 0.5
+spread_degrees = 0
+lifetime_random = 1.0
 impulse = 1000.0
 
 [node name="Floor" type="Node2D" parent="." index="2"]
