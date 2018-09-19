@@ -18,6 +18,7 @@ extends Node2D
 ##  - after instancing a particle from the user scene, attach a single node that is used for attaching other nodes that need to be cleaned
 ##  - add self_modulate gradient tween
 ##  - document and link to Kenney assets
+##  - use setget for properties
 
 ## ENUMS
 
