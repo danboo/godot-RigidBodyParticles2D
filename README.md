@@ -16,10 +16,12 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 
  * tracker_name - this <code>String</code> property indicates the name of the <code>Timer</code> node that is attached to each instanced particle. The <code>wait_time</code> property of the <code>Timer</code> is set to the lifetime of the particle, and is useful for setting up <code>Tween</code>s that vary over the life of the particle. For example, in a script attached to your particle scene you can access this as:
 
+    ````
     ## fade light over duration of particles existence
     onready var lifetime = get_node(get_parent().tracker_name).wait_time
     $Tween.interpolate_property($Light2D, "energy", 0.7, 0.4, lifetime,
     	Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
+    ````
 
 **Methods**
 
