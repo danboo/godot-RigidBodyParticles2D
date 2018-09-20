@@ -17,7 +17,8 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
  * <code>tracker_name</code> - this <code>String</code> property indicates the name of the <code>Timer</code> node that is attached to each instanced particle. The <code>wait_time</code> property of the <code>Timer</code> is set to the lifetime of the particle, and is useful for setting up <code>Tween</code>s that vary over the life of the particle. For example, in a script attached to your particle scene you can access this as:
 
     ````
-    onready var lifetime = get_node(get_parent().tracker_name).wait_time
+    onready var tracker  = get_node( get_parent().tracker_name )
+    onready var lifetime = tracker.wait_time
 
     function _ready():
 	    ## fade light over duration of particle's existence
@@ -38,9 +39,7 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 * create a prettier example (falling stones that create sparks)
 * rename exported variables for consistency with Particles2D
 * add convenience Tweens for RigidBody2D properties (gravity scale, bounce, friction, ...)
-* add a start()/play()/emit() method
 * add emit shapes in addition to Point (points, circle, ellipse, rectangle)
 * add Tween force vector (magnitude, direction and rotation)
 * add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
-* use setget for properties
 

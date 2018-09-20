@@ -4,10 +4,10 @@ extends Node2D
 
 ## EXPORTED VARIABLES
 
+export (bool)        var emitting = true setget set_emitting, get_emitting
 export (int)         var particles = 8      ## Number of particles emitted for each "shot"
 export (float, 1)    var particles_random = 0
 export (PackedScene) var particle_scene     ## Scene instanced and attached to each rigidbody
-export (bool)        var autostart = true   ## automatically start particles when add to tree
 export (bool)        var one_shot = false
 export (float, 1)    var explosiveness = 0
 export (String)      var tracker_name = "ParticleTracker"
@@ -23,18 +23,36 @@ export (float, 1)    var lifetime_random = 0
 export (float)       var impulse = 200
 export (float, 1)    var impulse_random = 0
 
+## SETGET METHODS
+
+func set_emitting(e):
+	var call_emit = e and ! emitting
+	emitting = e
+	if call_emit:
+		_emit()
+
+func get_emitting():
+	return emitting
+
 ## PRIVATE VARIABLES
 
 var _iteration = 0
 var _life_timer_script = _life_timer_script()
 
+## VIRTUAL METHODS
+
 func _ready():
 	randomize()
-	$Restarter.connect("timeout", self, "_start")
-	if autostart:
-		_start()
+	$Restarter.connect("timeout", self, "_emit")
+	if emitting:
+		_emit()
 
-func _start():
+## PRIVATE METHODS
+
+func _emit():
+
+	if ! emitting:
+		return
 
 	if ! one_shot:
 		$Restarter.wait_time = lifetime

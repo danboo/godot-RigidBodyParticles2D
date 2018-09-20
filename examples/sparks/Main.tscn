@@ -33,7 +33,7 @@ extents = Vector2( 256, 32 )
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = SubResource( 1 )
 
@@ -66,13 +66,11 @@ _sections_unfolded = [ "Transform" ]
 [node name="RigidBodyParticles2D" parent="Camera2D" index="0" instance=ExtResource( 1 )]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
-particles = 16
 particles_random = 0.4
 particle_scene = ExtResource( 2 )
 explosiveness = 1.0
-tracker_name = "ParticleTracker"
 angle_degrees = -90.0
-spread_degrees = 45.0
+spread_degrees = 30.0
 lifetime_random = 0.8
 impulse = 1000.0
 impulse_random = 0.75
