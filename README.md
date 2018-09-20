@@ -21,7 +21,7 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
     onready var lifetime = tracker.wait_time
 
     function _ready():
-	    ## fade light over duration of particle's existence
+		## fade light over duration of particle's existence
     	$Tween.interpolate_property($Light2D, "energy", 0.7, 0.4, lifetime,
     		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
     	$Tween.start()
