@@ -11,6 +11,7 @@ export (PackedScene) var particle_scene     ## Scene instanced and attached to e
 export (bool)        var one_shot = false
 export (float, 1)    var explosiveness = 0
 export (String)      var tracker_name = "ParticleTracker"
+export (Shape2D)     var emit_shape
 
 ## EMIT PROPERTIES
 
@@ -22,6 +23,7 @@ export (float, 1)    var lifetime_random = 0
 
 export (float)       var impulse = 200
 export (float, 1)    var impulse_random = 0
+
 
 ## SETGET METHODS
 
@@ -62,11 +64,32 @@ func _emit():
 	var emit_delay     = ( 1 - explosiveness ) * ( lifetime / float(particle_count) )
 
 	for i in range(particle_count):
+
 		var particle = particle_scene.instance()
 		if _iteration == 0 && particle.get_class() != 'RigidBody2D':
 			printerr("Error: Root node of 'Particle Scene' must be a 'RigidBody2D', not '"
 				+ particle.get_class()) + "'"
 		_initialize_particle(particle)
+
+		if emit_shape.get_class() == 'CircleShape2D':
+			var rand_radius   = emit_shape.radius * sqrt(randf())
+			var rand_theta    = randf() * 2 * PI
+			var rand_x        = rand_radius * cos(rand_theta)
+			var rand_y        = rand_radius * sin(rand_theta)
+			particle.position = Vector2(rand_x, rand_y)
+
+		if emit_shape.get_class() == 'RectangleShape2D':
+			var rand_x        = emit_shape.extents.x * ( 2 * randf() - 1 )
+			var rand_y        = emit_shape.extents.y * ( 2 * randf() - 1 )
+			particle.position = Vector2(rand_x, rand_y)
+
+		if emit_shape.get_class() == 'SegmentShape2D':
+			var rand          = randf()
+			particle.position = ( 1 - rand ) * emit_shape.a + rand * emit_shape.b
+
+		else:
+			printerr("Error: invalide emit shape (" + emit_shape.get_class() + ")")
+
 		add_child(particle)
 		if abs(emit_delay) > 0.01:
 			yield(get_tree().create_timer(emit_delay), "timeout")

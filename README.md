@@ -39,7 +39,7 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 * create a prettier example (falling stones that create sparks)
 * rename exported variables for consistency with Particles2D
 * add convenience Tweens for RigidBody2D properties (gravity scale, bounce, friction, ...)
-* add emit shapes in addition to Point (points, circle, ellipse, rectangle)
+* add emit CapsuleShape2D
 * add Tween force vector (magnitude, direction and rotation)
 * add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
-
+* support world vs local emitting
