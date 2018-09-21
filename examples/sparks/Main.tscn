@@ -23,11 +23,11 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="SegmentShape2D" id=5]
+[sub_resource type="CapsuleShape2D" id=5]
 
 custom_solver_bias = 0.0
-a = Vector2( -64, -128 )
-b = Vector2( 64, -64 )
+radius = 32.0
+height = 64.0
 
 [sub_resource type="RectangleShape2D" id=3]
 
@@ -72,23 +72,25 @@ _sections_unfolded = [ "Transform" ]
 [node name="RigidBodyParticles2D" parent="Camera2D" index="0" instance=ExtResource( 1 )]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
-particles = 32
+particles = 64
 particles_random = 0.4
 particle_scene = ExtResource( 2 )
 explosiveness = 1.0
-emit_shape = SubResource( 5 )
+emission_shape = SubResource( 5 )
 angle_degrees = -90.0
-spread_degrees = 30.0
-lifetime_random = 0.8
-impulse = 1000.0
-impulse_random = 0.75
+impulse = 800.0
 
-[node name="Floor" type="Node2D" parent="." index="1"]
+[node name="Structure" type="Node2D" parent="." index="1"]
+
+position = Vector2( 0, 128 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Floor" type="Node2D" parent="Structure" index="0"]
 
 position = Vector2( 0, 64 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Floor" index="0"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Structure/Floor" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -99,12 +101,12 @@ friction = 1.0
 bounce = 0.0
 _sections_unfolded = [ "Collision", "Transform" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Floor/StaticBody2D" index="0"]
 
 shape = SubResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Sprite" type="Sprite" parent="Floor" index="1"]
+[node name="Sprite" type="Sprite" parent="Structure/Floor" index="1"]
 
 texture = ExtResource( 3 )
 region_enabled = true
@@ -112,12 +114,12 @@ region_rect = Rect2( 0, 0, 512, 64 )
 region_filter_clip = true
 _sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility" ]
 
-[node name="Wall" type="Node2D" parent="." index="2"]
+[node name="Wall" type="Node2D" parent="Structure" index="1"]
 
 position = Vector2( 224, -96 )
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Wall" index="0"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Structure/Wall" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -128,12 +130,12 @@ friction = 1.0
 bounce = 0.0
 _sections_unfolded = [ "Collision", "Transform" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Wall/StaticBody2D" index="0"]
 
 shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Sprite" type="Sprite" parent="Wall" index="1"]
+[node name="Sprite" type="Sprite" parent="Structure/Wall" index="1"]
 
 texture = ExtResource( 3 )
 region_enabled = true

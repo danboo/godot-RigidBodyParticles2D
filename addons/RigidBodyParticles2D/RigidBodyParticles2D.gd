@@ -11,7 +11,7 @@ export (PackedScene) var particle_scene     ## Scene instanced and attached to e
 export (bool)        var one_shot = false
 export (float, 1)    var explosiveness = 0
 export (String)      var tracker_name = "ParticleTracker"
-export (Shape2D)     var emit_shape
+export (Shape2D)     var emission_shape
 
 ## EMIT PROPERTIES
 
@@ -63,6 +63,14 @@ func _emit():
 	var particle_count = _randomize(particles, particles_random)
 	var emit_delay     = ( 1 - explosiveness ) * ( lifetime / float(particle_count) )
 
+	var capsule_circle_frac
+
+	if emission_shape and emission_shape.get_class() == 'CapsuleShape2D':
+		var circle_area = pow(emission_shape.radius, 2) * PI
+		var rect_area   = emission_shape.radius * 2 * emission_shape.height
+		var total_area  = circle_area + rect_area
+		capsule_circle_frac = circle_area / total_area
+
 	for i in range(particle_count):
 
 		var particle = particle_scene.instance()
@@ -71,26 +79,46 @@ func _emit():
 				+ particle.get_class()) + "'"
 		_initialize_particle(particle)
 
-		if emit_shape.get_class() == 'CircleShape2D':
-			var rand_radius   = emit_shape.radius * sqrt(randf())
-			var rand_theta    = randf() * 2 * PI
-			var rand_x        = rand_radius * cos(rand_theta)
-			var rand_y        = rand_radius * sin(rand_theta)
-			particle.position = Vector2(rand_x, rand_y)
+		var particle_pos = Vector2(0,0)
 
-		if emit_shape.get_class() == 'RectangleShape2D':
-			var rand_x        = emit_shape.extents.x * ( 2 * randf() - 1 )
-			var rand_y        = emit_shape.extents.y * ( 2 * randf() - 1 )
-			particle.position = Vector2(rand_x, rand_y)
+		if emission_shape:
+			if emission_shape.get_class() == 'CircleShape2D':
+				var rand_radius = emission_shape.radius * sqrt(randf())
+				var rand_theta  = randf() * 2 * PI
+				particle_pos.x  = rand_radius * cos(rand_theta)
+				particle_pos.y  = rand_radius * sin(rand_theta)
 
-		if emit_shape.get_class() == 'SegmentShape2D':
-			var rand          = randf()
-			particle.position = ( 1 - rand ) * emit_shape.a + rand * emit_shape.b
+			elif emission_shape.get_class() == 'RectangleShape2D':
+				particle_pos.x = emission_shape.extents.x * ( 2 * randf() - 1 )
+				particle_pos.y = emission_shape.extents.y * ( 2 * randf() - 1 )
 
-		else:
-			printerr("Error: invalide emit shape (" + emit_shape.get_class() + ")")
+			elif emission_shape.get_class() == 'SegmentShape2D':
+				var rand     = randf()
+				particle_pos = ( 1 - rand ) * emission_shape.a + rand * emission_shape.b
 
+			elif emission_shape.get_class() == 'CapsuleShape2D':
+				var rand = randf()
+				if rand < capsule_circle_frac:
+					## in circle parts
+					var rand_radius = emission_shape.radius * sqrt(randf())
+					var rand_theta  = randf() * 2 * PI
+					particle_pos.x  = rand_radius * cos(rand_theta)
+					particle_pos.y  = rand_radius * sin(rand_theta)
+					if particle_pos.y < 0:
+						particle_pos.y -= emission_shape.height / 2
+					else:
+						particle_pos.y += emission_shape.height / 2
+				else:
+					## in rectangle part
+					particle_pos.x = emission_shape.radius * ( 2 * randf() - 1 )
+					particle_pos.y = emission_shape.height / 2 * ( 2 * randf() - 1 )
+
+			else:
+				printerr("Error: invalid emit shape (" + emission_shape.get_class() + ")")
+
+		particle.position = particle_pos
 		add_child(particle)
+
 		if abs(emit_delay) > 0.01:
 			yield(get_tree().create_timer(emit_delay), "timeout")
 
