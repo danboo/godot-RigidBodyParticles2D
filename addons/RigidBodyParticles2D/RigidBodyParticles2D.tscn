@@ -14,12 +14,16 @@ one_shot = false
 explosiveness = 0
 tracker_name = "ParticleTracker"
 emission_shape = null
-angle_degrees = 0
-spread_degrees = 0
 lifetime = 2
 lifetime_random = 0
+impulse_angle_degrees = 0
+impulse_spread_degrees = 0
 impulse = 200
 impulse_random = 0
+force_angle_degrees = 0
+force_spread_degrees = 0
+force = 0
+force_random = 0
 
 [node name="Restarter" type="Timer" parent="." index="0"]
 

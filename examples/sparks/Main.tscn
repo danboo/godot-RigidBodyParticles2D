@@ -77,8 +77,13 @@ particles_random = 0.4
 particle_scene = ExtResource( 2 )
 explosiveness = 1.0
 emission_shape = SubResource( 5 )
-angle_degrees = -90.0
-impulse = 800.0
+impulse_angle_degrees = -90.0
+impulse_spread_degrees = 0.0
+impulse = 1000.0
+force_angle_degrees = -180.0
+force_spread_degrees = 180.0
+force = 10.0
+force_random = 1.0
 
 [node name="Structure" type="Node2D" parent="." index="1"]
 

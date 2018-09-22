@@ -15,15 +15,19 @@ export (Shape2D)     var emission_shape
 
 ## EMIT PROPERTIES
 
-export (float, -360, 360) var angle_degrees = 0
-export (float, -360, 360) var spread_degrees = 0
 
 export (float)       var lifetime = 2
 export (float, 1)    var lifetime_random = 0
 
-export (float)       var impulse = 200
-export (float, 1)    var impulse_random = 0
+export (float, -360, 360) var impulse_angle_degrees = 0
+export (float, -360, 360) var impulse_spread_degrees = 0
+export (float)            var impulse = 200
+export (float, 1)         var impulse_random = 0
 
+export (float, -360, 360) var force_angle_degrees  = 0
+export (float, -360, 360) var force_spread_degrees = 0
+export (float)            var force = 0
+export (float, 1)         var force_random = 0
 
 ## SETGET METHODS
 
@@ -125,21 +129,39 @@ func _emit():
 	_iteration += 1
 
 func _randomize(value, randomness):
-	var rand_unit = ( 2 * randf() - 1 ) ## ranges from -1,+1
-	var rand_mult = rand_unit * randomness
-	var rand_add  = value * rand_mult
-	return value + rand_add
+	if typeof(value) == TYPE_VECTOR2:
+		var x_rand_unit = ( 2 * randf() - 1 ) ## ranges from -1,+1
+		var x_rand_mult = x_rand_unit * randomness
+		var x_rand_add  = value.x * x_rand_mult
+		var y_rand_unit = ( 2 * randf() - 1 ) ## ranges from -1,+1
+		var y_rand_mult = y_rand_unit * randomness
+		var y_rand_add  = value.y * y_rand_mult
+		return Vector2( value.x + x_rand_add, value.y + y_rand_add )
+	else:
+		var rand_unit = ( 2 * randf() - 1 ) ## ranges from -1,+1
+		var rand_mult = rand_unit * randomness
+		var rand_add  = value * rand_mult
+		return value + rand_add
 
 func _initialize_particle(p):
 
     ## impulse angle
-	var angle_inst   = angle_degrees + spread_degrees * ( 2 * randf() -1 )
-	var angle_rad    = deg2rad(angle_inst)
-	var angle_vector = Vector2( cos(angle_rad), sin(angle_rad) ).normalized()
+	var impulse_angle_inst   = impulse_angle_degrees + impulse_spread_degrees * ( 2 * randf() -1 )
+	var impulse_angle_rad    = deg2rad(impulse_angle_inst)
+	var impulse_angle_vector = Vector2( cos(impulse_angle_rad), sin(impulse_angle_rad) ).normalized()
 
 	## impulse magnitude
 	var impulse_inst = _randomize(impulse,  impulse_random)
-	p.apply_impulse( Vector2(0,0), angle_vector * impulse_inst )
+	p.apply_impulse( Vector2(0,0), impulse_angle_vector * impulse_inst )
+
+	## force angle
+	var force_angle_inst   = force_angle_degrees + force_spread_degrees * ( 2 * randf() -1 )
+	var force_angle_rad    = deg2rad(force_angle_inst)
+	var force_angle_vector = Vector2( cos(force_angle_rad), sin(force_angle_rad) ).normalized()
+
+	## force magnitude
+	var force_inst = _randomize(force, force_random)
+	p.add_force( Vector2(0,0), force_angle_vector * force_inst )
 
 	## set lifetime
 	var lifetime_inst    = _randomize(lifetime, lifetime_random)

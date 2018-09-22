@@ -45,3 +45,4 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 * add Tween force vector (magnitude, direction and rotation)
 * add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
 * fix tail of spark when emitter is rotated
+* bring randomness calculation inline with Particles2D
