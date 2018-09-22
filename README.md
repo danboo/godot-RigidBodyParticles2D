@@ -14,9 +14,9 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 
 **Properties**
 
- * <code>emission_shape</code> - Specify a <code>Shape2D</code> to be used as the area where particles are emitted. This can be a <code>CircleShape2D</code>, <code>RectangleShape2D</code>, <code>CapsuleShape2D</code> or <code>SegmentShape2D</code>. If a shape is not specified it defaults to a point emitter. If an invalid shape is specifed, an error is printed and a point emitter is used.
+ * `emission_shape` - Specify a `Shape2D` to be used as the area where particles are emitted. This can be a `CircleShape2D`, `RectangleShape2D`, `CapsuleShape2D` or `SegmentShape2D`. If a shape is not specified it defaults to a point emitter. If an invalid shape is specifed, an error is printed and a point emitter is used.
 
- * <code>tracker_name</code> - This <code>String</code> property indicates the name of the <code>Timer</code> node that is attached to each instanced particle. The <code>wait_time</code> property of the <code>Timer</code> is set to the lifetime of the particle, and is useful for setting up <code>Tween</code>s that vary over the life of the particle. For example, in a script attached to your particle scene you can access this as:
+ * `tracker_name` - This `String` property indicates the name of the `Timer` node that is attached to each instanced particle. The `wait_time` property of the `Timer` is set to the lifetime of the particle, and is useful for setting up `Tween`s that vary over the life of the particle. For example, in a script attached to your particle scene you can access this as:
 
     ````
     onready var tracker  = get_node( get_parent().tracker_name )
@@ -38,10 +38,10 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 **TODO**
 
 * document interface
+* add example gifs to README
 * create a prettier example (falling stones that create sparks)
 * rename exported variables for consistency with Particles2D
 * add convenience Tweens for RigidBody2D properties (gravity scale, bounce, friction, ...)
 * add Tween force vector (magnitude, direction and rotation)
 * add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
-* support world vs local emitting
-* fix tail of spart when emitter is rotated
+* fix tail of spark when emitter is rotated
