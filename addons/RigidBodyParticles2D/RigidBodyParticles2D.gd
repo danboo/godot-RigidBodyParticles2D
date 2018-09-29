@@ -5,9 +5,9 @@ extends Node2D
 ## EXPORTED VARIABLES
 
 export (bool)        var emitting = true setget set_emitting, get_emitting
-export (int)         var particles = 8      ## Number of particles emitted for each "shot"
-export (float, 1)    var particles_random = 0
-export (PackedScene) var particle_scene     ## Scene instanced and attached to each rigidbody
+export (int)         var amount = 8
+export (float, 1)    var amount_random = 0
+export (PackedScene) var particle_scene
 export (bool)        var one_shot = false
 export (float, 1)    var explosiveness = 0
 export (String)      var tracker_name = "ParticleTracker"
@@ -35,7 +35,7 @@ func set_emitting(e):
 	var call_emit = e and ! emitting
 	emitting = e
 	if call_emit:
-		_emit()
+		_shoot()
 
 func get_emitting():
 	return emitting
@@ -49,13 +49,13 @@ var _life_timer_script = _life_timer_script()
 
 func _ready():
 	randomize()
-	$Restarter.connect("timeout", self, "_emit")
+	$Restarter.connect("timeout", self, "_shoot")
 	if emitting:
-		_emit()
+		_shoot()
 
 ## PRIVATE METHODS
 
-func _emit():
+func _shoot():
 
 	if ! emitting:
 		return
@@ -64,7 +64,7 @@ func _emit():
 		$Restarter.wait_time = lifetime
 		$Restarter.start()
 
-	var particle_count = _randomize(particles, particles_random)
+	var particle_count = _randomize(amount, amount_random)
 	var emit_delay     = ( 1 - explosiveness ) * ( lifetime / float(particle_count) )
 
 	var capsule_circle_frac
