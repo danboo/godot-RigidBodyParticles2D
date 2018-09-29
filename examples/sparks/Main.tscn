@@ -67,10 +67,10 @@ _sections_unfolded = [ "Transform" ]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
 amount = 8
-amount_random = 0
+amount_random = 1.0
 particle_scene = ExtResource( 2 )
 explosiveness = 1.0
-lifetime = 3.0
+lifetime = 1.0
 impulse = 1000.0
 impulse_random = 1.0
 impulse_spread_degrees = 180.0

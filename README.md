@@ -10,11 +10,31 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 4. On the newly instanced emitter node, set the 'Particle Scene' property to the scene you created in step 2.
 5. Tune other various properties on the emitter node, play the scene, rinse and repeat to your liking.
 
+**Description**
+
+Randomness in `RigidBodyParticles2D` differs from `Particles2D` in that the resultant value can be either higher or lower than the specified base value. The general calculation is:
+
+	````
+	rand_param_value = param_value + param_value * ( 2 * randf() - 1 ) * param_random
+	````
+
+For instance if the base `impulse` parameter is set to `100` and `impulse_random` is set to `0.5`, then the resultant randomized value can range from `50` to `150` (`100 +/- 100 * 0.5 * randf()`).
+
 **Signals**
 
 **Properties**
 
- * `emission_shape` - Specify a `Shape2D` to be used as the area where particles are emitted. This can be a `CircleShape2D`, `RectangleShape2D`, `CapsuleShape2D` or `SegmentShape2D`. If a shape is not specified it defaults to a point emitter. If an invalid shape is specifed, an error is printed and a point emitter is used.
+ * `emitting` - TODO
+
+ * `amount` - TODO
+
+ * `amount_random` - TODO
+
+ * `particle_scene` - TODO
+
+ * `one_shot` - TODO
+
+ * `explosiveness` - TODO
 
  * `tracker_name` - This `String` property indicates the name of the `Timer` node that is attached to each instanced particle. The `wait_time` property of the `Timer` is set to the lifetime of the particle, and is useful for setting up `Tween`s that vary over the life of the particle. For example, in a script attached to your particle scene you can access this as:
 
@@ -29,6 +49,28 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
     	$Tween.start()
     ````
 
+ * `emission_shape` - Specify a `Shape2D` to be used as the area where particles are emitted. This can be a `CircleShape2D`, `RectangleShape2D`, `CapsuleShape2D` or `SegmentShape2D`. If a shape is not specified it defaults to a point emitter. If an invalid shape is specifed, an error is printed and a point emitter is used.
+
+ * `lifetime` - TODO
+
+ * `lifetime_random` - TODO
+
+ * `impulse` - TODO
+
+ * `impulse_random` - TODO
+
+ * `impulse_angle_degrees` - TODO
+
+ * `impulse_spread_degrees` - TODO
+
+ * `force` - TODO
+
+ * `force_random` - TODO
+
+ * `force_angle_degrees` - TODO
+
+ * `force_spread_degrees` - TODO
+
 **Methods**
 
 **Acknowledgements:**
@@ -37,7 +79,6 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 
 **TODO**
 
-* bring randomness calculation inline with Particles2D
 * add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
 * document interface
 * create a prettier example (a cloud, falling rain with wind)
