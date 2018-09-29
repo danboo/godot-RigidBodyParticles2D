@@ -16,18 +16,18 @@ export (Shape2D)     var emission_shape
 ## EMIT PROPERTIES
 
 
-export (float)       var lifetime = 2
-export (float, 1)    var lifetime_random = 0
+export (float)    var lifetime = 2
+export (float, 1) var lifetime_random = 0
 
-export (float, -360, 360) var impulse_angle_degrees = 0
-export (float, -360, 360) var impulse_spread_degrees = 0
 export (float)            var impulse = 200
 export (float, 1)         var impulse_random = 0
+export (float, -360, 360) var impulse_angle_degrees = 0
+export (float, -360, 360) var impulse_spread_degrees = 0
 
-export (float, -360, 360) var force_angle_degrees  = 0
-export (float, -360, 360) var force_spread_degrees = 0
 export (float)            var force = 0
 export (float, 1)         var force_random = 0
+export (float, -360, 360) var force_angle_degrees  = 0
+export (float, -360, 360) var force_spread_degrees = 0
 
 ## SETGET METHODS
 

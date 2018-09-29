@@ -23,12 +23,12 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
 extents = Vector2( 256, 32 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
@@ -66,18 +66,12 @@ _sections_unfolded = [ "Transform" ]
 [node name="RigidBodyParticles2D" parent="Camera2D" index="0" instance=ExtResource( 1 )]
 
 _sections_unfolded = [ "Transform", "Visibility" ]
-particles = 240
 particle_scene = ExtResource( 2 )
-emission_shape = null
+explosiveness = 1.0
 lifetime = 3.0
-impulse_angle_degrees = 0.0
-impulse_spread_degrees = 180.0
 impulse = 1000.0
 impulse_random = 1.0
-force_angle_degrees = 0.0
-force_spread_degrees = 0.0
-force = 0.0
-force_random = 0.0
+impulse_spread_degrees = 180.0
 
 [node name="Structure" type="Node2D" parent="." index="1"]
 
@@ -102,7 +96,7 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Floor/StaticBody2D" index="0"]
 
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Structure/Floor" index="1"]
@@ -131,7 +125,7 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Wall/StaticBody2D" index="0"]
 
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Structure/Wall" index="1"]
