@@ -14,11 +14,11 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 
 Randomness in `RigidBodyParticles2D` differs from `Particles2D` in that the resultant value can be either higher or lower than the specified base value. The general calculation is:
 
-	````
-	rand_param_value = param_value + param_value * ( 2 * randf() - 1 ) * param_random
-	````
+    ````
+    rand_param_value = param_value + param_value * ( 2 * randf() - 1 ) * param_random
+    ````
 
-For instance if the base `impulse` parameter is set to `100` and `impulse_random` is set to `0.5`, then the resultant randomized value can range from `50` to `150` (`100 +/- 100 * 0.5 * randf()`).
+For instance if the base `impulse` parameter is set to `100` and `impulse_random` is set to `0.5`, then the resultant randomized value can range from `50` to `150` (i.e., `100 +/- 100 * 0.5 * randf()`).
 
 **Signals**
 
