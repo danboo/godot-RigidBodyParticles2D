@@ -24,15 +24,15 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
 **Properties**
 
- * `emitting` - TODO
+ * `emitting` - Enable emitting if `true`. Disable emitting if `false`.
 
- * `amount` - TODO
+ * `amount` - Number of particles to emit for each "shot".
 
- * `amount_random` - TODO
+ * `amount_random` - Randomness parameter for `amount`. See note about randomness in the description above.
 
- * `particle_scene` - TODO
+ * `particle_scene` - The `PackedScene` that gets instanced and emitted for each particle.
 
- * `one_shot` - TODO
+ * `one_shot` - Emit only one set of particles if `true`. Repeatedly emit particle sets if `false`.
 
  * `explosiveness` - TODO
 
@@ -72,6 +72,12 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
  * `force_spread_degrees` - TODO
 
 **Methods**
+
+**Examples**
+
+ * spark
+
+ * simple
 
 **Acknowledgements:**
 
