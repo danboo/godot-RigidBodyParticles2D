@@ -147,7 +147,7 @@ func _initialize_particle(p):
 
     ## impulse angle
 	var impulse_angle_inst   = impulse_angle_degrees + impulse_spread_degrees * ( 2 * randf() -1 )
-	var impulse_angle_rad    = deg2rad(impulse_angle_inst)
+	var impulse_angle_rad    = deg2rad(impulse_angle_inst + global_rotation_degrees)
 	var impulse_angle_vector = Vector2( cos(impulse_angle_rad), sin(impulse_angle_rad) ).normalized()
 
 	## impulse magnitude
@@ -156,7 +156,7 @@ func _initialize_particle(p):
 
 	## force angle
 	var force_angle_inst   = force_angle_degrees + force_spread_degrees * ( 2 * randf() -1 )
-	var force_angle_rad    = deg2rad(force_angle_inst)
+	var force_angle_rad    = deg2rad(force_angle_inst + global_rotation_degrees)
 	var force_angle_vector = Vector2( cos(force_angle_rad), sin(force_angle_rad) ).normalized()
 
 	## force magnitude

@@ -35,7 +35,7 @@ func _ready():
 
 func _process(delta):
 	## align the sparks direction with its velocity
-	$SparkSprite.rotation   = linear_velocity.angle()
+	$SparkSprite.global_rotation = linear_velocity.angle()
 
 	## scale the tail of the sprite based on its velocity
 	$SparkSprite/Tail.scale = Vector2(2, min( 4, linear_velocity.length() / 100 ) )
