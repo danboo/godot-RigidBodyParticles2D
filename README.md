@@ -28,13 +28,13 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
  * `amount` - Number of particles to emit for each "shot".
 
- * `amount_random` - Randomness parameter for `amount`. See note about randomness in the description above.
+ * `amount_random` - Randomness parameter for `amount`. Valid range is `[0,1]`. See note about randomness in the description above.
 
  * `particle_scene` - The `PackedScene` that gets instanced and emitted for each particle.
 
- * `one_shot` - Emit only one set of particles if `true`. Repeatedly emit particle sets if `false`.
+ * `one_shot` - Emit only one "shot" (set) of particles if `true`. Repeatedly emit particle "shots" if `false`.
 
- * `explosiveness` - TODO
+ * `explosiveness` - Controls the delay between each particle within a single "shot" of particles. An `explosiveness` of `0` means that particles are emitted with even spacing over the `lifetime` of the "shot". An `explosiveness` of `1` means that all particles are emitted at once at the start of the `lifetime` of a "shot".
 
  * `tracker_name` - This `String` property indicates the name of the `Timer` node that is attached to each instanced particle. The `wait_time` property of the `Timer` is set to the lifetime of the particle, and is useful for setting up `Tween`s that vary over the life of the particle. For example, in a script attached to your particle scene you can access this as:
 
