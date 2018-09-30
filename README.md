@@ -22,6 +22,10 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
 **Signals**
 
+ * `shot_started` - Emitted each time a "shot" (set of particles) starts.
+
+ * `shot_ended` - Emitted each time a "shot" (set of particles) ends.
+
 **Properties**
 
  * `emitting` - Enable emitting if `true`. Disable emitting if `false`.
@@ -83,7 +87,7 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
 **TODO**
 
-* add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
+* profile performance
 * create a prettier example (a cloud, falling rain with wind)
 * add example gifs to README or create a demo GIF/video
 * fix initial tail of spark so it never goes behind origin

@@ -1,5 +1,10 @@
 extends Node2D
 
+## SIGNALS
+
+signal shot_started
+signal shot_ended
+
 ## ENUMS
 
 ## EXPORTED VARIABLES
@@ -14,7 +19,6 @@ export (String)      var tracker_name = "ParticleTracker"
 export (Shape2D)     var emission_shape
 
 ## EMIT PROPERTIES
-
 
 export (float)    var lifetime = 2
 export (float, 1) var lifetime_random = 0
@@ -59,6 +63,8 @@ func _shoot():
 
 	if ! emitting:
 		return
+
+	emit_signal("shot_started")
 
 	if ! one_shot:
 		$Restarter.wait_time = lifetime
@@ -132,6 +138,7 @@ func _shoot():
 				yield(get_tree().create_timer(delay), "timeout")
 
 	_iteration += 1
+	emit_signal("shot_ended")
 
 func _randomize(value, randomness):
 	if typeof(value) == TYPE_VECTOR2:
