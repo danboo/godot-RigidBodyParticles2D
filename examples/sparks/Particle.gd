@@ -15,6 +15,12 @@ func _ready():
 	$Modulate.interpolate_property($Light2D, "energy", 0.7, 0.4, lifetime,
 		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
 
+	## align the sparks direction with its velocity
+	$SparkSprite.global_rotation = linear_velocity.angle()
+
+	## scale the tail of the sprite based on its velocity
+	$SparkSprite/Tail.scale = Vector2(2, min( 4, linear_velocity.length() / 100 ) )
+
 	for i in range(gradient.offsets.size() - 1):
 
 		## calc time in this step of the gradient
