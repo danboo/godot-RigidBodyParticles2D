@@ -12,6 +12,16 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 
 **Description**
 
+This addon makes it possible to create simple particle systems that emit `RigidBody2D` based scenes, which Godot's `Particles2d` node cannot. This lets particles interact with the environment like bouncing off other physics bodies, or use collision detection to apply affects like damage.
+
+And because the particles are user created scenes, you have more control over their behaviors. You can attach any other nodes to the parent `RigidBody2D` like a `Light2D` or even a `Particles2D`.
+
+Using custom scripts you can modify particles during over their lifetime, like rotating them so they're oriented along the path they are traveling, stretching their trails in line with their velocity, or changing the lighting intensity as they near end of life.
+
+Note that emitting many `RigidBody2D` instances in rapid succession can have an adverse affect on performance. For this reason, you should keep the scenes small and efficient, and the number of instanced particles relatively low.
+
+**Randomness**
+
 Randomness in `RigidBodyParticles2D` differs from `Particles2D` in that the resultant value can be either higher or lower than the specified base value. The general calculation is:
 
 ````
@@ -77,9 +87,9 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
 **Examples**
 
- * spark
+ * `examples\simple` - This simple example shows a very simple scene `RigidBody2D` particles with a `Sprite2D` attached. The particles are emitted and bounce around in the physics simulation.
 
- * simple
+ * `examples\sparks` - This more complex example uses a particle scene that includes multiple `Sprite2D` nodes, a `Tween` and a `Light2D` node. Additionally it uses a custom script to orient the tail of the spark along the path it is traveling, stretch the tail in line with its velocity, and vary the color of the sprite and light over the lifetime of the particle.
 
 **Acknowledgements:**
 
@@ -87,8 +97,6 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
 **TODO**
 
-* profile performance
-* create a prettier example (a cloud, falling rain with wind)
 * add example gifs to README or create a demo GIF/video
 * fix initial tail of spark so it never goes behind origin
 * add support for arrays of particle scenes with multiple selection methods (random, random weighted, round-robin)
