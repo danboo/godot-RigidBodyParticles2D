@@ -84,8 +84,7 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 **TODO**
 
 * add custom signals (initial start, stop, iteration start, iteration end, all particles removed )
-* document interface
 * create a prettier example (a cloud, falling rain with wind)
 * add example gifs to README or create a demo GIF/video
-* see if there is a better way to handle emit delay when particles are very rapid (i.e., remove explosive conversion, more accurate timing)
 * fix initial tail of spark so it never goes behind origin
+* add support for arrays of particle scenes with multiple selection methods (random, random weighted, round-robin)

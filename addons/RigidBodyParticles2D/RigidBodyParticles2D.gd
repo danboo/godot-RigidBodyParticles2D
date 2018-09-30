@@ -65,7 +65,8 @@ func _shoot():
 		$Restarter.start()
 
 	var particle_count = _randomize(amount, amount_random)
-	var emit_delay     = ( 1 - explosiveness ) * ( lifetime / float(particle_count) )
+	var particles_left = particle_count
+	var emit_end       = OS.get_ticks_msec() + lifetime * 1000 * (1 - explosiveness)
 
 	var capsule_circle_frac
 
@@ -120,11 +121,15 @@ func _shoot():
 			else:
 				printerr("Error: invalid emit shape (" + emission_shape.get_class() + ")")
 
+		particles_left -= 1
 		particle.position = particle_pos
 		add_child(particle)
 
-		if abs(emit_delay) > 0.01:
-			yield(get_tree().create_timer(emit_delay), "timeout")
+		if explosiveness < 1 and particles_left > 0:
+			var slices = particles_left + 1
+			var delay  = ( emit_end - OS.get_ticks_msec() ) / slices / 1000
+			if delay > 0.001:
+				yield(get_tree().create_timer(delay), "timeout")
 
 	_iteration += 1
 
