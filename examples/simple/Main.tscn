@@ -33,7 +33,7 @@ extents = Vector2( 256, 32 )
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = SubResource( 1 )
 

@@ -89,6 +89,8 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
  * `examples/simple` - This simple example shows a very simple scene `RigidBody2D` particles with a `Sprite2D` attached. The particles are emitted and bounce around in the physics simulation.
 
+ ![Simple](https://i.gyazo.com/b630121417c7dec217a9c256ef2b2515.gif "Simple")
+
  * `examples/sparks` - This more complex example uses a particle scene that includes multiple `Sprite2D` nodes, a `Tween` and a `Light2D` node. Additionally it uses a custom script to orient the tail of the spark along the path it is traveling, stretch the tail in line with its velocity, and vary the color of the sprite and light over the lifetime of the particle.
 
  ![Sparks](https://i.gyazo.com/ec3aeb01818a268c2bc2b0aa9b0dd6da.gif "Sparks")
