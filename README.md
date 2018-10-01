@@ -4,21 +4,21 @@ A Godot 3.0 addon that facilitates simple rigid body based particle systems.
 
 **Instructions**
 
-1. Copy the 'addons' directory into your project.
-2. Create a new scene that has a 'RigidBody2D' as its root node (Don't forget to setup a 'CollisionShape2D' and the collision layer/mask). You can add whatever you like below this node; for example a Sprite. This scene represents an individual particle, and will be instanced each time a particle is emitted.
-3. In another new or existing scene use 'Instance Child Scene' to add 'addons/RigidBodyParticles2D/RigidBodyParticles2D.tscn' as a node. This will be the particle emitter.
-4. On the newly instanced emitter node, set the 'Particle Scene' property to the scene you created in step 2.
+1. Copy the `addons/` directory into your project.
+2. Create a new scene that has a `RigidBody2D` as its root node (Don't forget to setup a `CollisionShape2D` and the collision layer/mask). You can add whatever you like below this node; for example a `Sprite2D`. This scene represents an individual particle, and will be instanced each time a particle is emitted.
+3. In another new or existing scene use 'Instance Child Scene' to add `addons/RigidBodyParticles2D/RigidBodyParticles2D.tscn` as a node. This will be the particle emitter.
+4. On the newly instanced emitter node, set the `particle_scene` property ("Particle Scene" in the inspector) to the scene you created in step 2.
 5. Tune other various properties on the emitter node, play the scene, rinse and repeat to your liking.
 
 **Description**
 
-This addon makes it possible to create simple particle systems that emit `RigidBody2D` based scenes, which Godot's `Particles2d` node cannot. This lets particles interact with the environment like bouncing off other physics bodies, or use collision detection to apply affects like damage.
+This addon makes it possible to create simple particle systems that emit `RigidBody2D` based scenes, which Godot's `Particles2D` node cannot. This lets particles interact with the environment like bouncing off other physics bodies, or use collision detection to apply affects like damage.
 
-And because the particles are user created scenes, you have more control over their behaviors. You can attach any other nodes to the parent `RigidBody2D` like a `Light2D` or even a `Particles2D`.
+And because the particles are user created scenes, you have more control over their behaviors. You can attach any other nodes to the parent `RigidBody2D` like a `Sprite2D`, `Light2D` or even a `Particles2D`.
 
 Using custom scripts you can modify particles during over their lifetime, like rotating them so they're oriented along the path they are traveling, stretching their trails in line with their velocity, or changing the lighting intensity as they near end of life.
 
-Note that emitting many `RigidBody2D` instances in rapid succession can have an adverse affect on performance. For this reason, you should keep the scenes small and efficient, and the number of instanced particles relatively low.
+Note that emitting many `RigidBody2D` instances in rapid succession can have an adverse affect on performance. For this reason, you should keep the particle scenes small and efficient, and the number of instanced particles relatively low.
 
 **Randomness**
 
@@ -50,7 +50,7 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
  * `explosiveness` - Controls the delay between each particle within a single "shot" of particles.  The valid range is `[0,1]`. An `explosiveness` of `0` means that particles are emitted with even spacing over the `lifetime` of the "shot". An `explosiveness` of `1` means that all particles are emitted at once at the start of the `lifetime` of a "shot".
 
- * `tracker_name` - This `String` property indicates the name of the `Timer` node that is attached to each instanced particle. The `wait_time` property of the `Timer` is set to the lifetime of the particle, and is useful for setting up `Tween`s that vary over the life of the particle. For example, in a script attached to your particle scene you can access this as:
+ * `tracker_name` - This `String` property indicates the name of the `Timer` node that is attached to each instanced particle. The `wait_time` property of the `Timer` is set to the lifetime of the particle, and is useful for setting up a `Tween` that varies over the life of the particle. For example, in a script attached to your particle scene you can access the particle's lifetime as:
 
 ````
     onready var tracker  = get_node( get_parent().tracker_name )
@@ -90,6 +90,8 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
  * `examples/simple` - This simple example shows a very simple scene `RigidBody2D` particles with a `Sprite2D` attached. The particles are emitted and bounce around in the physics simulation.
 
  * `examples/sparks` - This more complex example uses a particle scene that includes multiple `Sprite2D` nodes, a `Tween` and a `Light2D` node. Additionally it uses a custom script to orient the tail of the spark along the path it is traveling, stretch the tail in line with its velocity, and vary the color of the sprite and light over the lifetime of the particle.
+
+ ![Sparks](https://i.gyazo.com/ec3aeb01818a268c2bc2b0aa9b0dd6da.gif "Sparks")
 
 **Acknowledgements:**
 
