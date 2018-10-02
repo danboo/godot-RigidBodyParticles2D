@@ -101,6 +101,5 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
 **TODO**
 
-* add example gifs to README or create a demo GIF/video
 * fix initial tail of spark so it never goes behind origin
 * add support for arrays of particle scenes with multiple selection methods (random, random weighted, round-robin)

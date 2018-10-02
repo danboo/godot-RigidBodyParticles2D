@@ -23,22 +23,22 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=2]
 
 custom_solver_bias = 0.0
 radius = 16.0
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 256, 32 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 script = SubResource( 1 )
 
@@ -75,7 +75,7 @@ amount = 16
 amount_random = 0
 particle_scene = ExtResource( 2 )
 explosiveness = 0.6
-emission_shape = SubResource( 4 )
+emission_shape = SubResource( 2 )
 lifetime_random = 0.5
 impulse = 1000.0
 impulse_random = 0.3
@@ -105,7 +105,7 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Floor/StaticBody2D" index="0"]
 
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Structure/Floor" index="1"]
@@ -134,7 +134,7 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Wall/StaticBody2D" index="0"]
 
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Structure/Wall" index="1"]

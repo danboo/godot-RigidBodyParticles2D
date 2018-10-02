@@ -87,7 +87,7 @@ func _shoot():
 		var particle = particle_scene.instance()
 		if _iteration == 0 && particle.get_class() != 'RigidBody2D':
 			printerr("Error: Root node of 'Particle Scene' must be a 'RigidBody2D', not '"
-				+ particle.get_class()) + "'"
+				+ particle.get_class() + "'")
 		_initialize_particle(particle)
 
 		var particle_pos = Vector2(0,0)
