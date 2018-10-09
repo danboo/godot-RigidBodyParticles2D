@@ -103,3 +103,6 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
 * fix initial tail of spark so it never goes behind origin
 * add support for arrays of particle scenes with multiple selection methods (random, random weighted, round-robin)
+* add delay and delay randomness to impulse and force application
+* add force duration and duration randomness to force
+* add initial angle and initial angle randomness
