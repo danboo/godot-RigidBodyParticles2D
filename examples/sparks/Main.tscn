@@ -78,6 +78,8 @@ impulse = 1000.0
 impulse_random = 0.3
 impulse_angle_degrees = -90.0
 impulse_spread_degrees = 50.0
+init_rotation_degrees = 0
+init_rotation_degrees_random = 0
 
 [node name="Structure" type="Node2D" parent="."]
 position = Vector2( 0, 64 )

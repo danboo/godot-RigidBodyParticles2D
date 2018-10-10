@@ -73,17 +73,21 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
  * `impulse_random` - Randomness parameter for `impulse`. The valid range is `[0,1]`. See note about randomness in the description above.
 
- * `impulse_angle_degrees` - Specifies the `impulse` angle in degrees.
+ * `impulse_angle_degrees` - Specifies the `impulse` angle in degrees. Valid range is `[-360,360]`.
 
- * `impulse_spread_degrees` - Controls the spread of the angle of `impulse` for each particle. Each particle's initial angle will range from `[impulse_angle_degrees - impulse_spread_degrees, impulse_angle_degrees + impulse_spread_degrees]`.
+ * `impulse_spread_degrees` - Controls the spread of the angle of `impulse` for each particle. Each particle's initial angle will range from `[impulse_angle_degrees - impulse_spread_degrees, impulse_angle_degrees + impulse_spread_degrees]`. Valid range is `[-360,360]`.
 
  * `force` - Specifies the `applied_force` magnitude (not direction) applied to the `RigidBody2D` particle as it is emitted.
 
  * `force_random` - Randomness parameter for `force`. The valid range is `[0,1]`. See note about randomness in the description above.
 
- * `force_angle_degrees` - Specifies the `force` angle in degrees.
+ * `force_angle_degrees` - Specifies the `force` angle in degrees. Valid range is `[-360,360]`.
 
- * `force_spread_degrees` - Controls the spread of the angle of `force` for each particle. Each particle's initial angle will range from `[force_angle_degrees - force_spread_degrees, force_angle_degrees + force_spread_degrees]`.
+ * `force_spread_degrees` - Controls the spread of the angle of `force` for each particle. Each particle's initial angle will range from `[force_angle_degrees - force_spread_degrees, force_angle_degrees + force_spread_degrees]`. Valid range is `[-360,360]`.
+
+ * `initial_rotation_degrees` - Sets the initial rotation of the particle when emitted. Valid range is `[-360,360]`.
+
+ * `initial_rotation_degrees_random` - Randomness parameter for `initial_rotation_degrees`. The valid range is `[0,1]`. See note about randomness in the description above.
 
 **Examples**
 
@@ -105,4 +109,3 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 * add support for arrays of particle scenes with multiple selection methods (random, random weighted, round-robin)
 * add delay and delay randomness to impulse and force application
 * add force duration and duration randomness to force
-* add initial angle and initial angle randomness

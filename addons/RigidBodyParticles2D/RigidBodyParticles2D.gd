@@ -30,8 +30,11 @@ export (float, -360, 360) var impulse_spread_degrees = 0
 
 export (float)            var force = 0
 export (float, 1)         var force_random = 0
-export (float, -360, 360) var force_angle_degrees  = 0
+export (float, -360, 360) var force_angle_degrees = 0
 export (float, -360, 360) var force_spread_degrees = 0
+
+export (float, -360, 360) var initial_rotation_degrees = 0
+export (float, 1)         var initial_rotation_degrees_random  = 0
 
 ## SETGET METHODS
 
@@ -185,6 +188,9 @@ func _initialize_particle(p):
 	life_timer.one_shot  = true
 	life_timer.particle  = p
 	p.add_child(life_timer)
+
+	var initial_rotation_degrees_inst = _randomize(initial_rotation_degrees, initial_rotation_degrees_random)
+	p.rotation_degrees = initial_rotation_degrees_inst
 
 func _life_timer_script():
 	var gdscript = GDScript.new()
