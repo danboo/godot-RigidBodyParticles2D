@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-onready var lifetime = get_node(get_parent().tracker_name).wait_time
+onready var lifetime = get_node(get_parent().tracker_name).lifetime
 
 export (Gradient) var gradient
 

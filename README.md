@@ -50,15 +50,14 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
  * `explosiveness` - Controls the delay between each particle within a single "shot" of particles.  The valid range is `[0,1]`. An `explosiveness` of `0` means that particles are emitted with even spacing over the `lifetime` of the "shot". An `explosiveness` of `1` means that all particles are emitted at once at the start of the `lifetime` of a "shot".
 
- * `tracker_name` - This `String` property indicates the name of the `Timer` node that is attached to each instanced particle. The `wait_time` property of the `Timer` is set to the lifetime of the particle, and is useful for setting up a `Tween` that varies over the life of the particle. For example, in a script attached to your particle scene you can access the particle's lifetime as:
+ * `tracker_name` - This `String` property indicates the name of the tracker node that is attached to each instanced particle. The `lifetime` property of the tracker is set to the lifetime of the particle, and is useful for setting up `Tween`s that vary over the life of a particle. For example, in a script attached to your particle scene you can access the particle's lifetime as:
 
 ````
     onready var tracker  = get_node( get_parent().tracker_name )
-    onready var lifetime = tracker.wait_time
 
     function _ready():
     	## fade light over duration of particle's existence
-    	$Tween.interpolate_property($Light2D, "energy", 0.7, 0.4, lifetime,
+    	$Tween.interpolate_property($Light2D, "energy", 0.7, 0.4, tracker.lifetime,
     		Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
     	$Tween.start()
 ````

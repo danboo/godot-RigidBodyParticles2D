@@ -18,8 +18,6 @@ export (float, 1)    var explosiveness = 0
 export (String)      var tracker_name = "ParticleTracker"
 export (Shape2D)     var emission_shape
 
-## EMIT PROPERTIES
-
 export (float)    var lifetime = 2
 export (float, 1) var lifetime_random = 0
 
@@ -50,7 +48,7 @@ func get_emitting():
 ## PRIVATE VARIABLES
 
 var _iteration = 0
-var _life_timer_script = _life_timer_script()
+onready var _tracker_scene = load("res://addons/RigidBodyParticles2D/ParticleTracker.tscn")
 
 ## VIRTUAL METHODS
 
@@ -179,33 +177,12 @@ func _initialize_particle(p):
 	p.add_force( Vector2(0,0), force_angle_vector * force_inst )
 
 	## set lifetime
-	var lifetime_inst    = _randomize(lifetime, lifetime_random)
-	var life_timer       = Timer.new()
-	life_timer.name      = tracker_name
-	life_timer.set_script(_life_timer_script)
-	life_timer.wait_time = lifetime_inst
-	life_timer.autostart = true
-	life_timer.one_shot  = true
-	life_timer.particle  = p
-	p.add_child(life_timer)
+	var lifetime_inst = _randomize(lifetime, lifetime_random)
+	var tracker       = _tracker_scene.instance()
+	tracker.lifetime  = lifetime_inst
+	tracker.name      = tracker_name
+	tracker.particle  = p
+	p.add_child(tracker)
 
 	var initial_rotation_degrees_inst = _randomize(initial_rotation_degrees, initial_rotation_degrees_random)
 	p.rotation_degrees = initial_rotation_degrees_inst
-
-func _life_timer_script():
-	var gdscript = GDScript.new()
-	gdscript.set_source_code(_life_timer_script_text())
-	gdscript.reload()
-	return gdscript
-
-func _life_timer_script_text():
-	return """
-extends Timer
-var particle
-
-func _ready():
-	connect("timeout", self, "_on_timeout")
-
-func _on_timeout():
-	particle.queue_free()
-"""
