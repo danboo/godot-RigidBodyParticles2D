@@ -89,7 +89,7 @@ func _shoot():
 		if _iteration == 0 && particle.get_class() != 'RigidBody2D':
 			printerr("Error: Root node of 'Particle Scene' must be a 'RigidBody2D', not '"
 				+ particle.get_class() + "'")
-		_initialize_particle(particle)
+		_initialize_particle_tracker(particle)
 
 		var particle_pos = Vector2(0,0)
 
@@ -156,33 +156,19 @@ func _randomize(value, randomness):
 		var rand_add  = value * rand_mult
 		return value + rand_add
 
-func _initialize_particle(p):
+func _initialize_particle_tracker(p):
 
-    ## impulse angle
-	var impulse_angle_inst   = impulse_angle_degrees + impulse_spread_degrees * ( 2 * randf() -1 )
-	var impulse_angle_rad    = deg2rad(impulse_angle_inst + global_rotation_degrees)
-	var impulse_angle_vector = Vector2( cos(impulse_angle_rad), sin(impulse_angle_rad) ).normalized()
-
-	## impulse magnitude
-	var impulse_inst = _randomize(impulse,  impulse_random)
-	p.apply_impulse( Vector2(0,0), impulse_angle_vector * impulse_inst )
-
-	## force angle
-	var force_angle_inst   = force_angle_degrees + force_spread_degrees * ( 2 * randf() -1 )
-	var force_angle_rad    = deg2rad(force_angle_inst + global_rotation_degrees)
-	var force_angle_vector = Vector2( cos(force_angle_rad), sin(force_angle_rad) ).normalized()
-
-	## force magnitude
-	var force_inst = _randomize(force, force_random)
-	p.add_force( Vector2(0,0), force_angle_vector * force_inst )
-
-	## set lifetime
-	var lifetime_inst = _randomize(lifetime, lifetime_random)
 	var tracker       = _tracker_scene.instance()
-	tracker.lifetime  = lifetime_inst
 	tracker.name      = tracker_name
 	tracker.particle  = p
 	p.add_child(tracker)
 
-	var initial_rotation_degrees_inst = _randomize(initial_rotation_degrees, initial_rotation_degrees_random)
-	p.rotation_degrees = initial_rotation_degrees_inst
+	tracker.impulse_angle = impulse_angle_degrees + impulse_spread_degrees * ( 2 * randf() -1 )
+	tracker.impulse       = _randomize(impulse,  impulse_random)
+
+	tracker.force_angle = force_angle_degrees + force_spread_degrees * ( 2 * randf() -1 )
+	tracker.force       = _randomize(force, force_random)
+
+	tracker.lifetime = _randomize(lifetime, lifetime_random)
+
+	tracker.initial_rotation = _randomize(initial_rotation_degrees, initial_rotation_degrees_random)
