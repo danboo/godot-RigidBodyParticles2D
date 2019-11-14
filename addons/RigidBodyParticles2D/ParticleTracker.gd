@@ -13,6 +13,7 @@ var initial_rotation
 func _ready():
 	$Remover.wait_time = lifetime
 	$Remover.connect("timeout", self, "_on_remover_timeout")
+	$Remover.start()
 
 	var impulse_angle_rad    = deg2rad(impulse_angle + global_rotation_degrees)
 	var impulse_angle_vector = Vector2( cos(impulse_angle_rad), sin(impulse_angle_rad) ).normalized()
