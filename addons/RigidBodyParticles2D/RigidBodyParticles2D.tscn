@@ -3,33 +3,8 @@
 [ext_resource path="res://addons/RigidBodyParticles2D/RigidBodyParticles2D.gd" type="Script" id=1]
 
 [node name="RigidBodyParticles2D" type="Node2D"]
-
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
-emitting = true
-particles = 8
-particles_random = 0
-particle_scene = null
-one_shot = false
-explosiveness = 0
-tracker_name = "ParticleTracker"
-emission_shape = null
-lifetime = 2
-lifetime_random = 0
-impulse_angle_degrees = 0
-impulse_spread_degrees = 0
-impulse = 200
-impulse_random = 0
-force_angle_degrees = 0
-force_spread_degrees = 0
-force = 0
-force_random = 0
 
-[node name="Restarter" type="Timer" parent="." index="0"]
+[node name="ShotTimer" type="Timer" parent="."]
 
-process_mode = 1
-wait_time = 1.0
-one_shot = true
-autostart = false
-
-
+[node name="EmitTimer" type="Timer" parent="."]

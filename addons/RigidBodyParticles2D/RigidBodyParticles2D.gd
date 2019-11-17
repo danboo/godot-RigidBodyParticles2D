@@ -37,53 +37,59 @@ export (float, 1)         var initial_rotation_degrees_random  = 0
 ## SETGET METHODS
 
 func set_emitting(e):
-	var call_emit = e and ! emitting
 	emitting = e
-	if call_emit:
-		_shoot()
 
 func get_emitting():
 	return emitting
 
 ## PRIVATE VARIABLES
 
-var _iteration = 0
+var _iteration  = 0
 onready var _tracker_scene = load("res://addons/RigidBodyParticles2D/ParticleTracker.tscn")
+var _capsule_circle_frac
+
+## per shot state variables
+var _particle_count = 0
+var _emit_count = 0
+var _shot_started = false
 
 ## VIRTUAL METHODS
 
 func _ready():
 	randomize()
-	$Restarter.connect("timeout", self, "_shoot")
-	if emitting:
-		_shoot()
 
-## PRIVATE METHODS
+	$ShotTimer.connect("timeout", self, "_on_shot_timer_timeout")
+	$ShotTimer.one_shot = one_shot
+	$ShotTimer.start(lifetime)
 
-func _shoot():
-
-	if ! emitting:
-		return
-
-	emit_signal("shot_started")
-
-	if ! one_shot:
-		$Restarter.wait_time = lifetime
-		$Restarter.start()
-
-	var particle_count = _randomize(amount, amount_random)
-	var particles_left = particle_count
-	var emit_end       = OS.get_ticks_msec() + lifetime * 1000 * (1 - explosiveness)
-
-	var capsule_circle_frac
+	var emit_time = lifetime * (1 - explosiveness)
+	emit_time = max( 0.01, emit_time )
+	$EmitTimer.start(emit_time)
 
 	if emission_shape and emission_shape.get_class() == 'CapsuleShape2D':
 		var circle_area = pow(emission_shape.radius, 2) * PI
 		var rect_area   = emission_shape.radius * 2 * emission_shape.height
 		var total_area  = circle_area + rect_area
-		capsule_circle_frac = circle_area / total_area
+		_capsule_circle_frac = circle_area / total_area
 
-	for i in range(particle_count):
+func _physics_process(delta):
+
+	if ! emitting:
+		return
+
+	if ! _shot_started:
+		_shot_started = true
+		emit_signal("shot_started")
+		_particle_count = _randomize(amount, amount_random)
+
+	if _emit_count >= _particle_count:
+		return
+
+	var elapsed_fraction   = 1.0 - $EmitTimer.time_left / $EmitTimer.wait_time
+	var running_emit_total = ceil(_particle_count * elapsed_fraction)
+	var frame_emit_count   = running_emit_total - _emit_count
+
+	for i in frame_emit_count:
 
 		var particle = particle_scene.instance()
 		if _iteration == 0 && particle.get_class() != 'RigidBody2D':
@@ -110,7 +116,7 @@ func _shoot():
 
 			elif emission_shape.get_class() == 'CapsuleShape2D':
 				var rand = randf()
-				if rand < capsule_circle_frac:
+				if rand < _capsule_circle_frac:
 					## in circle parts
 					var rand_radius = emission_shape.radius * sqrt(randf())
 					var rand_theta  = randf() * 2 * PI
@@ -128,18 +134,22 @@ func _shoot():
 			else:
 				printerr("Error: invalid emit shape (" + emission_shape.get_class() + ")")
 
-		particles_left -= 1
 		particle.position = particle_pos
 		add_child(particle)
+		_emit_count += 1
 
-		if explosiveness < 1 and particles_left > 0:
-			var slices = particles_left + 1
-			var delay  = ( emit_end - OS.get_ticks_msec() ) / slices / 1000
-			if delay > 0.001:
-				yield(get_tree().create_timer(delay), "timeout")
+## PRIVATE METHODS
 
+func _on_shot_timer_timeout():
+
+	_emit_count = 0
 	_iteration += 1
+	_shot_started = false
+
 	emit_signal("shot_ended")
+
+	if one_shot:
+		emitting = false
 
 func _randomize(value, randomness):
 	if typeof(value) == TYPE_VECTOR2:

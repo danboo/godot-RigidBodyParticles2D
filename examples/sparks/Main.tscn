@@ -5,7 +5,6 @@
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="GDScript" id=1]
-
 script/source = "extends Node
 
 # class member variables go here, for example:
@@ -24,52 +23,24 @@ func _ready():
 "
 
 [sub_resource type="CircleShape2D" id=2]
-
-custom_solver_bias = 0.0
 radius = 16.0
 
 [sub_resource type="RectangleShape2D" id=3]
-
-custom_solver_bias = 0.0
 extents = Vector2( 256, 32 )
 
 [sub_resource type="RectangleShape2D" id=4]
-
-custom_solver_bias = 0.0
 extents = Vector2( 32, 128 )
 
 [node name="Main" type="Node"]
 script = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 1
-rotating = false
 current = true
-zoom = Vector2( 1, 1 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
-limit_smoothed = false
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
-_sections_unfolded = [ "Transform" ]
 
 [node name="RigidBodyParticles2D" parent="Camera2D" instance=ExtResource( 1 )]
-_sections_unfolded = [ "Material", "Transform", "Visibility" ]
 amount = 16
-amount_random = 0
 particle_scene = ExtResource( 2 )
 explosiveness = 0.6
 emission_shape = SubResource( 2 )
@@ -78,56 +49,34 @@ impulse = 1000.0
 impulse_random = 0.3
 impulse_angle_degrees = -90.0
 impulse_spread_degrees = 50.0
-init_rotation_degrees = 0
-init_rotation_degrees_random = 0
 
 [node name="Structure" type="Node2D" parent="."]
 position = Vector2( 0, 64 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Floor" type="Node2D" parent="Structure"]
 position = Vector2( 0, 64 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Structure/Floor"]
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-_sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Floor/StaticBody2D"]
 shape = SubResource( 3 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Structure/Floor"]
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 512, 64 )
 region_filter_clip = true
-_sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility" ]
 
 [node name="Wall" type="Node2D" parent="Structure"]
 position = Vector2( 224, -96 )
-_sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Structure/Wall"]
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-_sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Wall/StaticBody2D"]
 shape = SubResource( 4 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Structure/Wall"]
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 64, 256 )
 region_filter_clip = true
-_sections_unfolded = [ "Animation", "Material", "Offset", "Region", "Transform", "Visibility" ]
-
