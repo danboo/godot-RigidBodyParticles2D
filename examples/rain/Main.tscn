@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://addons/RigidBodyParticles2D/RigidBodyParticles2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://examples/rain/Particle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 200, 10 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 256, 32 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 128 )
+
+[node name="Main" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="RigidBodyParticles2D" parent="Camera2D" instance=ExtResource( 1 )]
+position = Vector2( 0, -366.284 )
+amount = 400
+particle_scene = ExtResource( 2 )
+emission_shape = SubResource( 3 )
+lifetime = 5.0
+impulse = 0.0
+
+[node name="Structure" type="Node2D" parent="."]
+position = Vector2( 0, 64 )
+
+[node name="Floor" type="Node2D" parent="Structure"]
+position = Vector2( 0, 64 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Structure/Floor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Floor/StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Structure/Floor"]
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 64 )
+region_filter_clip = true
+
+[node name="Wall" type="Node2D" parent="Structure"]
+position = Vector2( 224, -96 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Structure/Wall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Structure/Wall/StaticBody2D"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Structure/Wall"]
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 64, 256 )
+region_filter_clip = true
