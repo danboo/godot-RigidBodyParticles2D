@@ -102,6 +102,10 @@ For instance if the base `impulse` parameter is set to `100` and `impulse_random
 
  * Spark sprites from Kenney's Particle Pack (https://kenney.nl/assets/particle-pack).
 
+**CHANGES**
+
+2019-11-16 - fix issue with particle bursts at the end of a "shot" when the emitter fell behind due to timer lag
+
 **TODO**
 
 * fix initial tail of spark so it never goes behind origin
